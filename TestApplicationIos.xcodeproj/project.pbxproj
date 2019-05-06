@@ -20,14 +20,14 @@
 		513D96C9227CF777009D6D51 /* RootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 513D96C7227CF777009D6D51 /* RootTableViewCell.xib */; };
 		51F7A833227E04D500DD21FC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A832227E04D500DD21FC /* Constants.swift */; };
 		51F7A835227E0C7D00DD21FC /* VideoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A834227E0C7D00DD21FC /* VideoListModel.swift */; };
-		51F7A839227E3C7C00DD21FC /* ResponseDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A838227E3C7C00DD21FC /* ResponseDataParser.swift */; };
-		51F7A83C227E408E00DD21FC /* LSActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A83B227E408D00DD21FC /* LSActivityIndicator.swift */; };
 		51F7A83F227E50A700DD21FC /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A83E227E50A700DD21FC /* VideoObject.swift */; };
 		51F7A844227F4B4200DD21FC /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A843227F4B4200DD21FC /* DateExtension.swift */; };
 		51F7A846227F6DCD00DD21FC /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A845227F6DCD00DD21FC /* StringExtension.swift */; };
 		51F7A858227F8F3100DD21FC /* CountryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A857227F8F3100DD21FC /* CountryObject.swift */; };
 		51F7A85B227FB29200DD21FC /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A85A227FB29200DD21FC /* UIHelper.swift */; };
 		51F7A85D227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */; };
+		51F7A8632280277600DD21FC /* LSActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A8622280277500DD21FC /* LSActivityIndicator.swift */; };
+		51F7A8652280278300DD21FC /* ResponseDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A8642280278300DD21FC /* ResponseDataParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,14 +47,14 @@
 		513D96CC227DE3E4009D6D51 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		51F7A832227E04D500DD21FC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		51F7A834227E0C7D00DD21FC /* VideoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListModel.swift; sourceTree = "<group>"; };
-		51F7A838227E3C7C00DD21FC /* ResponseDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseDataParser.swift; path = ../../../../Work/GITlynkcityrider/LynkCity/Network/ResponseDataParser.swift; sourceTree = "<group>"; };
-		51F7A83B227E408D00DD21FC /* LSActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSActivityIndicator.swift; path = ../../../../Work/GITlynkcityrider/LynkCity/Helpers/UIHelpers/LSActivityIndicator.swift; sourceTree = "<group>"; };
 		51F7A83E227E50A700DD21FC /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
 		51F7A843227F4B4200DD21FC /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		51F7A845227F6DCD00DD21FC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		51F7A857227F8F3100DD21FC /* CountryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryObject.swift; sourceTree = "<group>"; };
 		51F7A85A227FB29200DD21FC /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootVC+CountryPickerDelegate.swift"; sourceTree = "<group>"; };
+		51F7A8622280277500DD21FC /* LSActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSActivityIndicator.swift; path = ../../../../GITlynkcityrider/LynkCity/Helpers/UIHelpers/LSActivityIndicator.swift; sourceTree = "<group>"; };
+		51F7A8642280278300DD21FC /* ResponseDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseDataParser.swift; path = ../../../../GITlynkcityrider/LynkCity/Network/ResponseDataParser.swift; sourceTree = "<group>"; };
 		D253C6606F7D1EC7ABAF5FB1 /* Pods_TestApplicationIos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestApplicationIos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE742FF3A126524B9D27241B /* Pods-TestApplicationIos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApplicationIos.release.xcconfig"; path = "Target Support Files/Pods-TestApplicationIos/Pods-TestApplicationIos.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,8 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				513D96BC227CC49B009D6D51 /* AFNetworkManager.swift */,
+				51F7A8642280278300DD21FC /* ResponseDataParser.swift */,
 				513D96BE227CC4AB009D6D51 /* ServerAPIManager.swift */,
-				51F7A838227E3C7C00DD21FC /* ResponseDataParser.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 		51F7A83A227E408000DD21FC /* UIHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				51F7A83B227E408D00DD21FC /* LSActivityIndicator.swift */,
+				51F7A8622280277500DD21FC /* LSActivityIndicator.swift */,
 				51F7A85A227FB29200DD21FC /* UIHelper.swift */,
 			);
 			path = UIHelpers;
@@ -383,14 +383,14 @@
 				513D96C2227CF55D009D6D51 /* RootVC+UITableViewDelegate.swift in Sources */,
 				51F7A844227F4B4200DD21FC /* DateExtension.swift in Sources */,
 				51F7A846227F6DCD00DD21FC /* StringExtension.swift in Sources */,
+				51F7A8632280277600DD21FC /* LSActivityIndicator.swift in Sources */,
 				513D96A6227CC17A009D6D51 /* RootVC.swift in Sources */,
 				51F7A85D227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift in Sources */,
 				513D96BF227CC4AC009D6D51 /* ServerAPIManager.swift in Sources */,
 				51F7A858227F8F3100DD21FC /* CountryObject.swift in Sources */,
 				51F7A835227E0C7D00DD21FC /* VideoListModel.swift in Sources */,
-				51F7A83C227E408E00DD21FC /* LSActivityIndicator.swift in Sources */,
+				51F7A8652280278300DD21FC /* ResponseDataParser.swift in Sources */,
 				513D96C8227CF777009D6D51 /* RootTableViewCell.swift in Sources */,
-				51F7A839227E3C7C00DD21FC /* ResponseDataParser.swift in Sources */,
 				51F7A833227E04D500DD21FC /* Constants.swift in Sources */,
 				51F7A85B227FB29200DD21FC /* UIHelper.swift in Sources */,
 				513D96A4227CC17A009D6D51 /* AppDelegate.swift in Sources */,

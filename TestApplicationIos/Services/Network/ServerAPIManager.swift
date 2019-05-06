@@ -13,7 +13,7 @@ class ServerAPIManager {
     typealias NetworkCompletionBlock = (_ result: AnyObject?, _ isSuccess: Bool, _ errorMessage: String?) -> Void
     
     class func getVideosList(params: [String: Any], completion: @escaping (NetworkCompletionBlock)) {
-        let requestURL = Constants.API.getVideos
+        let requestURL = Constants.API.searchViedos
         AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
             switch responseData.result {
@@ -32,18 +32,18 @@ class ServerAPIManager {
         }
     }
     
-    class func downloadImage(urlString: String, completion: @escaping (NetworkCompletionBlock)) {
-        print(urlString)
-        guard let requestURL = URL(string: urlString) else { return }
-        AFNetworkManager.getRequestData(methodPath: requestURL, params: nil)
+    class func getVideosById(params: [String: Any], completion: @escaping (NetworkCompletionBlock)) {
+        let requestURL = Constants.API.getVideoById
+        AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
             switch responseData.result {
             case .success:
-                if let data = responseData.data {
+                let resultParsed = ResponseDataParser.parse(from: responseData.response!.statusCode, responseData: responseData.data, type: VideoModel.self)
+                if let data = resultParsed.dataParsed {
                     completion(data as AnyObject, true, nil)
                 } else {
                     print("parse error: \(String(describing: responseData.result.value))")
-                    completion(nil, false, (responseData.result.error as! String))
+                    completion(nil, false, resultParsed.error)
                 }
             case .failure(let error):
                 completion(nil, false, error.localizedDescription)

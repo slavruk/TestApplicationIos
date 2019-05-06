@@ -9,90 +9,33 @@
 import Foundation
 
 struct VideoListModel: Codable {
-    let kind, etag, nextPageToken: String?
-    let pageInfo: PageInfo?
-    let items: [Item]?
-}
-
-struct PageInfo: Codable {
-    let totalResults, resultsPerPage: Int?
+    let kind, etag, nextPageToken, regionCode: String?
+    let pageInfo: PageInfo
+    let items: [Item]
 }
 
 struct Item: Codable {
-    let kind: String?
-    let etag, id: String?
-    let snippet: Snippet?
-    let contentDetails: ContentDetails?
-    let statistics: Statistics?
+    let kind: String
+    let etag: String
+    let id: ID
+    let snippet: Snippet
 }
 
-struct Snippet: Codable {
-    let publishedAt, channelID, title, description: String?
-    let thumbnails: Thumbnails?
-    let channelTitle: String?
-    let tags: [String]?
-    let categoryID: String?
-    let liveBroadcastContent: String?
-    let localized: Localized?
-    let defaultAudioLanguage, defaultLanguage: String?
+struct ID: Codable {
+    let kind: String
+    let videoID: String
     
     enum CodingKeys: String, CodingKey {
-        case publishedAt
-        case channelID = "channelId"
-        case title, description, thumbnails, channelTitle, tags
-        case categoryID = "categoryId"
-        case liveBroadcastContent, localized, defaultAudioLanguage, defaultLanguage
+        case kind
+        case videoID = "videoId"
     }
-}
-
-struct Thumbnails: Codable {
-    let thumbnailsDefault, medium, high: Default?
-    let standard, maxres: Default?
-    
-    enum CodingKeys: String, CodingKey {
-        case thumbnailsDefault = "default"
-        case medium, high, standard, maxres
-    }
-}
-
-struct Localized: Codable {
-    let title, description: String?
-}
-
-
-struct ContentDetails: Codable {
-    let duration: String?
-    let dimension: Dimension?
-    let definition: Definition?
-    let caption: String?
-    let licensedContent: Bool?
-    let projection: Projection?
-    let regionRestriction: RegionRestriction?
-}
-
-enum Definition: String, Codable {
-    case hd = "hd"
-    case sd = "sd"
-}
-
-enum Dimension: String, Codable {
-    case the2D = "2d"
-}
-
-enum Projection: String, Codable {
-    case rectangular = "rectangular"
-}
-
-struct RegionRestriction: Codable {
-    let allowed: [String]?
 }
 
 struct Default: Codable {
-    let url: String?
-    let width, height: Int?
+    let url: String
+    let width, height: Int
 }
 
-struct Statistics: Codable {
-    let viewCount, likeCount, dislikeCount, favoriteCount: String?
-    let commentCount: String?
+struct PageInfo: Codable {
+    let totalResults, resultsPerPage: Int
 }

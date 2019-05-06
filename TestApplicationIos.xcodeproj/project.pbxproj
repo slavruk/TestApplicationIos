@@ -28,6 +28,8 @@
 		51F7A85D227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */; };
 		51F7A8632280277600DD21FC /* LSActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A8622280277500DD21FC /* LSActivityIndicator.swift */; };
 		51F7A8652280278300DD21FC /* ResponseDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A8642280278300DD21FC /* ResponseDataParser.swift */; };
+		51F7A86722802F8800DD21FC /* RootVC+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A86622802F8800DD21FC /* RootVC+SearchBarDelegate.swift */; };
+		51F7A869228038D800DD21FC /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A868228038D800DD21FC /* VideoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootVC+CountryPickerDelegate.swift"; sourceTree = "<group>"; };
 		51F7A8622280277500DD21FC /* LSActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSActivityIndicator.swift; path = ../../../../GITlynkcityrider/LynkCity/Helpers/UIHelpers/LSActivityIndicator.swift; sourceTree = "<group>"; };
 		51F7A8642280278300DD21FC /* ResponseDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseDataParser.swift; path = ../../../../GITlynkcityrider/LynkCity/Network/ResponseDataParser.swift; sourceTree = "<group>"; };
+		51F7A86622802F8800DD21FC /* RootVC+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootVC+SearchBarDelegate.swift"; sourceTree = "<group>"; };
+		51F7A868228038D800DD21FC /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		D253C6606F7D1EC7ABAF5FB1 /* Pods_TestApplicationIos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestApplicationIos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE742FF3A126524B9D27241B /* Pods-TestApplicationIos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApplicationIos.release.xcconfig"; path = "Target Support Files/Pods-TestApplicationIos/Pods-TestApplicationIos.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				51F7A834227E0C7D00DD21FC /* VideoListModel.swift */,
+				51F7A868228038D800DD21FC /* VideoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				513D96A5227CC17A009D6D51 /* RootVC.swift */,
+				51F7A86622802F8800DD21FC /* RootVC+SearchBarDelegate.swift */,
 				513D96C1227CF55D009D6D51 /* RootVC+UITableViewDelegate.swift */,
 				51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */,
 			);
@@ -381,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				513D96C2227CF55D009D6D51 /* RootVC+UITableViewDelegate.swift in Sources */,
+				51F7A86722802F8800DD21FC /* RootVC+SearchBarDelegate.swift in Sources */,
 				51F7A844227F4B4200DD21FC /* DateExtension.swift in Sources */,
 				51F7A846227F6DCD00DD21FC /* StringExtension.swift in Sources */,
 				51F7A8632280277600DD21FC /* LSActivityIndicator.swift in Sources */,
@@ -392,6 +399,7 @@
 				51F7A8652280278300DD21FC /* ResponseDataParser.swift in Sources */,
 				513D96C8227CF777009D6D51 /* RootTableViewCell.swift in Sources */,
 				51F7A833227E04D500DD21FC /* Constants.swift in Sources */,
+				51F7A869228038D800DD21FC /* VideoModel.swift in Sources */,
 				51F7A85B227FB29200DD21FC /* UIHelper.swift in Sources */,
 				513D96A4227CC17A009D6D51 /* AppDelegate.swift in Sources */,
 				513D96BD227CC49B009D6D51 /* AFNetworkManager.swift in Sources */,

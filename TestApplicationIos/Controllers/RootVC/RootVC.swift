@@ -12,12 +12,13 @@ import CountryPicker
 class RootVC: UIViewController {
     
     //MARK: Outlets
+    @IBOutlet weak var searchBar: UISearchBar?
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var countryPickerView: UIView?
     @IBOutlet weak var countryPicker: CountryPicker?
     
     //MARK: Constants
-    private let countResultVideo = 10
+    let countResultVideo = 10
     
     //MARK: Variables
     var currentCountryName = "Ukraine"
@@ -28,8 +29,14 @@ class RootVC: UIViewController {
         super.viewDidLoad()
         setTitleNavBar()
         setTableView()
-        downloadViedoList()
         setCountryPicker()
+        downloadViedoList(params: [
+            "part": "snippet",
+            "maxResults": countResultVideo,
+            "regionCode": currentCountryCode,
+            "order": "viewCount",
+            "type": "video",
+            "key": Constants.API.apiKey])
     }
     
     private func setTitleNavBar() {
@@ -51,36 +58,47 @@ class RootVC: UIViewController {
     /*
      Gets a list of videos according to the search criteria.
      */
-    private func downloadViedoList() {
-        LSActivityIndicator.showIndicator(fullScreen: true)
+    func downloadViedoList(params: [String: Any]) {
+        LSActivityIndicator.showIndicator(fullScreen: false)
         ServerAPIManager.getVideosList(
-            params: ["part": "snippet,contentDetails,statistics",
-                     "chart": "mostPopular",
-                     "maxResults": countResultVideo,
-                     "regionCode": currentCountryCode,
-                     "key": Constants.API.apiKey
-            ])
+            params: params)
         { (result, success, error) in
             LSActivityIndicator.hideIndicator()
             if success, let videoList = result as? VideoListModel {
                 self.videoObjects.removeAll()
-                for item in videoList.items ?? [] {
+                for item in videoList.items {
                     // If any property is absent, then complete the current iteration.
-                    guard
-                        let videoId = item.id,
-                        let imageUrl = item.snippet?.thumbnails?.maxres?.url,
-                        let title = item.snippet?.title,
-                        let duration = item.contentDetails?.duration,
-                        let viewsCount = Int(item.statistics?.viewCount ?? "0"),
-                        let datePublished = item.snippet?.publishedAt
-                        else { continue }
-                    // Create an object that contains video properties.
-                    let videoObject = VideoObject(viedoId: videoId, imageUrl: imageUrl, title: title, duration: duration, viewsCount: viewsCount, datePublished: datePublished)
-                    self.videoObjects.append(videoObject)
+                    self.getVideoById(videoId: item.id.videoID)
                 }
+            } else {
+                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+            }
+        }
+    }
+    
+    private func getVideoById(videoId: String) {
+        ServerAPIManager.getVideosById(
+            params: ["part": "snippet,contentDetails,statistics",
+                     "id" : videoId,
+                     "key": Constants.API.apiKey
+            ])
+        { (result, success, error) in
+            if success, let video = result as? VideoModel {
+                guard
+                    let videoId = video.items?[0].id,
+                    let imageUrl = video.items?[0].snippet.thumbnails.maxres?.url,
+                    let title = video.items?[0].snippet.title,
+                    let duration = video.items?[0].contentDetails.duration,
+                    let viewsCount = Int(video.items?[0].statistics?.viewCount ?? "0"),
+                    let datePublished = video.items?[0].snippet.publishedAt
+                    else { return }
+                // Create an object that contains video properties.
+                let videoObject = VideoObject(viedoId: videoId, imageUrl: imageUrl , title: title , duration: duration, viewsCount: viewsCount , datePublished: datePublished )
+                self.videoObjects.append(videoObject)
                 DispatchQueue.main.async {
                     self.reloadTableView()
                 }
+                
             } else {
                 UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
             }
@@ -93,6 +111,7 @@ class RootVC: UIViewController {
         self.tableView?.reloadData()
     }
     
+    //MARK: Actions
     @IBAction func selectCountryAction(_ sender: Any) {
         countryPickerView?.isHidden = false
         setCountryPicker()
@@ -105,6 +124,12 @@ class RootVC: UIViewController {
     @IBAction func doneToolBarAction(_ sender: Any) {
         countryPickerView?.isHidden = true
         setTitleNavBar()
-        downloadViedoList()
+        downloadViedoList(params: [
+            "part": "snippet",
+            "maxResults": countResultVideo,
+            "regionCode": currentCountryCode,
+            "order": "viewCount",
+            "type": "video",
+            "key": Constants.API.apiKey])
     }
 }

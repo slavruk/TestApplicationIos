@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xcD-CK-QbE">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="h0P-Iy-1sf">
+            <objects>
+                <navigationController id="xcD-CK-QbE" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5nv-ml-6Te">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Alc-72-JnA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tCO-xi-fQN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1543" y="-1"/>
+        </scene>
+        <!--RootVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="RootVC" customModule="TestApplicationIos" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bBB-cR-I8w">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="7us-At-2c9"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="4ws-Qo-mtJ"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16L-Pj-Ygc">
+                                <rect key="frame" x="0.0" y="602" width="414" height="260"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W3d-4K-M4Q">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <items>
+                                            <barButtonItem style="plain" id="fj9-O7-V8K">
+                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iX6-rx-soH">
+                                                    <rect key="frame" x="20" y="7" width="48" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Cancel">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="cancelToolBarAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oT7-YE-XkQ"/>
+                                                    </connections>
+                                                </button>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="g3x-D4-oMW"/>
+                                            <barButtonItem style="plain" id="imj-lz-XIt">
+                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WfE-fJ-hNe">
+                                                    <rect key="frame" x="348" y="7" width="46" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Done">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="doneToolBarAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G30-Q7-7ld"/>
+                                                    </connections>
+                                                </button>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2v-fM-n2h" customClass="CountryPicker" customModule="CountryPicker">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="216"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="t2v-fM-n2h" secondAttribute="bottom" id="7is-xW-bRl"/>
+                                    <constraint firstItem="W3d-4K-M4Q" firstAttribute="leading" secondItem="16L-Pj-Ygc" secondAttribute="leading" id="Cqq-Su-hR4"/>
+                                    <constraint firstAttribute="trailing" secondItem="t2v-fM-n2h" secondAttribute="trailing" id="Jxf-2C-M5K"/>
+                                    <constraint firstAttribute="trailing" secondItem="W3d-4K-M4Q" secondAttribute="trailing" id="SGx-nR-g2q"/>
+                                    <constraint firstItem="W3d-4K-M4Q" firstAttribute="top" secondItem="16L-Pj-Ygc" secondAttribute="top" id="ffm-ed-8ub"/>
+                                    <constraint firstItem="t2v-fM-n2h" firstAttribute="leading" secondItem="16L-Pj-Ygc" secondAttribute="leading" id="lFt-sT-d9z"/>
+                                    <constraint firstItem="t2v-fM-n2h" firstAttribute="top" secondItem="W3d-4K-M4Q" secondAttribute="bottom" id="ptX-ap-FTz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="bBB-cR-I8w" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="AJH-Xm-elr"/>
+                            <constraint firstItem="16L-Pj-Ygc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="L1u-qz-6eY"/>
+                            <constraint firstItem="bBB-cR-I8w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="T6B-p8-9ec"/>
+                            <constraint firstItem="16L-Pj-Ygc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VQy-NY-oAH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bBB-cR-I8w" secondAttribute="trailing" id="WyU-q1-VyW"/>
+                            <constraint firstItem="bBB-cR-I8w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dAR-KO-Sxx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bBB-cR-I8w" secondAttribute="bottom" id="gXb-yQ-xya"/>
+                            <constraint firstItem="bBB-cR-I8w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mS1-aw-6jT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bBB-cR-I8w" secondAttribute="bottom" id="tdb-yA-WD5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="16L-Pj-Ygc" secondAttribute="bottom" id="tm1-bP-T2z"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="N1k-rV-Wfc">
+                        <barButtonItem key="rightBarButtonItem" id="Xls-yB-fJA">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nae-aA-fmU">
+                                <rect key="frame" x="255" y="6" width="139" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Choose the country">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectCountryAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dWr-ad-cgo"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="countryPicker" destination="t2v-fM-n2h" id="iOQ-2c-zGY"/>
+                        <outlet property="countryPickerView" destination="16L-Pj-Ygc" id="onK-m6-2cl"/>
+                        <outlet property="tableView" destination="bBB-cR-I8w" id="x4z-2v-bc6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-509" y="-1"/>
+        </scene>
+    </scenes>
+</document>

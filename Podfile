@@ -6,5 +6,7 @@ target 'TestApplicationIos' do
   use_frameworks!
   
  pod 'Alamofire'
+ pod 'Kingfisher'
+ pod 'CountryPickerSwift'
 
 end

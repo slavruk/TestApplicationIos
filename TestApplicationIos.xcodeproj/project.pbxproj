@@ -23,7 +23,6 @@
 		51F7A83F227E50A700DD21FC /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A83E227E50A700DD21FC /* VideoObject.swift */; };
 		51F7A844227F4B4200DD21FC /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A843227F4B4200DD21FC /* DateExtension.swift */; };
 		51F7A846227F6DCD00DD21FC /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A845227F6DCD00DD21FC /* StringExtension.swift */; };
-		51F7A858227F8F3100DD21FC /* CountryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A857227F8F3100DD21FC /* CountryObject.swift */; };
 		51F7A85B227FB29200DD21FC /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A85A227FB29200DD21FC /* UIHelper.swift */; };
 		51F7A85D227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */; };
 		51F7A8632280277600DD21FC /* LSActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A8622280277500DD21FC /* LSActivityIndicator.swift */; };
@@ -52,7 +51,6 @@
 		51F7A83E227E50A700DD21FC /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
 		51F7A843227F4B4200DD21FC /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		51F7A845227F6DCD00DD21FC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		51F7A857227F8F3100DD21FC /* CountryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryObject.swift; sourceTree = "<group>"; };
 		51F7A85A227FB29200DD21FC /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		51F7A85C227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootVC+CountryPickerDelegate.swift"; sourceTree = "<group>"; };
 		51F7A8622280277500DD21FC /* LSActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSActivityIndicator.swift; path = ../../../../GITlynkcityrider/LynkCity/Helpers/UIHelpers/LSActivityIndicator.swift; sourceTree = "<group>"; };
@@ -218,7 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				51F7A83E227E50A700DD21FC /* VideoObject.swift */,
-				51F7A857227F8F3100DD21FC /* CountryObject.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -394,7 +391,6 @@
 				513D96A6227CC17A009D6D51 /* RootVC.swift in Sources */,
 				51F7A85D227FDC3F00DD21FC /* RootVC+CountryPickerDelegate.swift in Sources */,
 				513D96BF227CC4AC009D6D51 /* ServerAPIManager.swift in Sources */,
-				51F7A858227F8F3100DD21FC /* CountryObject.swift in Sources */,
 				51F7A835227E0C7D00DD21FC /* VideoListModel.swift in Sources */,
 				51F7A8652280278300DD21FC /* ResponseDataParser.swift in Sources */,
 				513D96C8227CF777009D6D51 /* RootTableViewCell.swift in Sources */,

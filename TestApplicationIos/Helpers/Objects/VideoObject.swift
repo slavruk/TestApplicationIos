@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct VideoObject {
+class VideoObject {
     
     let viedoId: String
     let imageUrl: String

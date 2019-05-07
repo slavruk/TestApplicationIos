@@ -19,7 +19,7 @@ class RootTableViewCell: UITableViewCell {
     @IBOutlet weak var datePublishedLabel: UILabel?
     
     //MARK: Variables
-    var videoObject: VideoObject?
+    weak var videoObject: VideoObject?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,7 +47,7 @@ class RootTableViewCell: UITableViewCell {
         let formattedDateString = Date().convertDateFormat(datePublished.trim(firstIndex: datePublished.startIndex, offset: 10))
         datePublishedLabel?.text = "\(formattedDateString) date of download"
         loadImage()
-
+        
     }
     
     private func loadImage() {

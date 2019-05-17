@@ -18,12 +18,12 @@ extension RootVC: UISearchBarDelegate {
             "order": "viewCount",
             "type": "video",
             "key": Constants.API.apiKey]
-        if !searchText.isEmpty {
-            params["q"] = searchText
-            downloadViedoList(params: params)
-        } else {
-            params["q"] = nil
-            downloadViedoList(params: params)
-        }
+//        if !searchText.isEmpty {
+//            params["q"] = searchText
+//            downloadViedoList(params: params)
+//        } else {
+//            params["q"] = nil
+//            downloadViedoList(params: params)
+//        }
     }
 }

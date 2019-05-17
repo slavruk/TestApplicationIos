@@ -12,13 +12,15 @@ class ServerAPIManager {
     
     typealias NetworkCompletionBlock = (_ result: AnyObject?, _ isSuccess: Bool, _ errorMessage: String?) -> Void
     
-    class func getVideosList(params: [String: Any], completion: @escaping (NetworkCompletionBlock)) {
+    class func getVideosList(params: [String:Any], completion: @escaping (NetworkCompletionBlock)) {
         let requestURL = Constants.API.searchViedos
+//        let encoder = JSONEncoder()
+//        let jsonData = try! encoder.encode(params)
         AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
             switch responseData.result {
             case .success:
-                let resultParsed = ResponseDataParser.parse(from: responseData.response!.statusCode, responseData: responseData.data, type: VideoListModel.self)
+                let resultParsed = ResponseDataParser.parse(responseData: responseData.data, type: VideoListModel.self)
                 if let data = resultParsed.dataParsed {
                     completion(data as AnyObject, true, nil)
                 } else {
@@ -32,13 +34,16 @@ class ServerAPIManager {
         }
     }
     
-    class func getVideosById(params: [String: Any], completion: @escaping (NetworkCompletionBlock)) {
+    class func getVideosById(params: [String:Any], completion: @escaping (NetworkCompletionBlock)) {
         let requestURL = Constants.API.getVideoById
+//        let encoder = JSONEncoder()
+//        let jsonData = try! encoder.encode(params)
         AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
+            print(responseData)
             switch responseData.result {
             case .success:
-                let resultParsed = ResponseDataParser.parse(from: responseData.response!.statusCode, responseData: responseData.data, type: VideoModel.self)
+                let resultParsed = ResponseDataParser.parse(responseData: responseData.data, type: VideoModel.self)
                 if let data = resultParsed.dataParsed {
                     completion(data as AnyObject, true, nil)
                 } else {
@@ -48,7 +53,7 @@ class ServerAPIManager {
             case .failure(let error):
                 completion(nil, false, error.localizedDescription)
             }
-            
+
         }
     }
 }

@@ -23,20 +23,42 @@ class RootVC: UIViewController {
     //MARK: Variables
     var currentCountryName = "Ukraine"
     var currentCountryCode = "UA"
-    var videoObjects: [VideoObject] = []
+    //    var videoList: [Item] = []
+    //    lazy var downloadVideoListManager: DownloadVideoListManager = {
+    //        let manager = DownloadVideoListManager(downloadVideoList: self)
+    //        return manager
+    //    }()
+    var downloadVideoListManager: DownloadVideoListManager
+    
+    init(downloadVideoListManager: DownloadVideoListManager) {
+        self.downloadVideoListManager = downloadVideoListManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTitleNavBar()
         setTableView()
         setCountryPicker()
-        downloadViedoList(params: [
+        downloadVideoListManager.downloadVideoList(params: [
             "part": "snippet",
             "maxResults": countResultVideo,
             "regionCode": currentCountryCode,
             "order": "viewCount",
             "type": "video",
             "key": Constants.API.apiKey])
+        //        downloadViedoList(params: [
+        //            "part": "snippet",
+        //            "maxResults": countResultVideo,
+        //            "regionCode": currentCountryCode,
+        //            "order": "viewCount",
+        //            "type": "video",
+        //            "key": Constants.API.apiKey])
     }
     
     private func setTitleNavBar() {
@@ -58,58 +80,94 @@ class RootVC: UIViewController {
     /*
      Gets a list of videos according to the search criteria.
      */
-    func downloadViedoList(params: [String: Any]) {
-        LSActivityIndicator.showIndicator(fullScreen: false)
-        ServerAPIManager.getVideosList(
-            params: params)
-        { (result, success, error) in
-            LSActivityIndicator.hideIndicator()
-            if success, let videoList = result as? VideoListModel {
-                self.videoObjects.removeAll()
-                for item in videoList.items {
-                    // If any property is absent, then complete the current iteration.
-                    self.getVideoById(videoId: item.id.videoID)
-                }
-            } else {
-                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
-            }
-        }
+    //    func downloadViedoList(params: [String: Any]) {
+    //        LSActivityIndicator.showIndicator(fullScreen: false)
+    //        ServerAPIManager.getVideosList(
+    //            params: params)
+    //        { (result, success, error) in
+    //            LSActivityIndicator.hideIndicator()
+    //            if success, let videoList = result as? VideoListModel {
+    //                self.videoObjects.removeAll()
+    //                for item in videoList.items {
+    //                    // If any property is absent, then complete the current iteration.
+    //                    self.getVideoById(videoId: item.id.videoID)
+    //                }
+    //            } else {
+    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+    //            }
+    //        }
+    //    }
+    
+    //    func downloadViedoList(params: VideoListRequest) {
+    //        LSActivityIndicator.showIndicator(fullScreen: false)
+    //        ServerAPIManager.getVideosList(
+    //            params: params)
+    //        { (result, success, error) in
+    //            LSActivityIndicator.hideIndicator()
+    //            if success, let videoList = result as? VideoListModel {
+    //                self.videoObjects.removeAll()
+    //                for item in videoList.items {
+    //                    // If any property is absent, then complete the current iteration.
+    //                    self.getVideoById(videoId: item.id.videoID)
+    //                }
+    //            } else {
+    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+    //            }
+    //        }
+    //    }
+    
+    func updateSearchVideoList(videoList items: [Item]) {
+        //        videoList = items
+        //        self.videoList.removeAll()
+        //        for item in items {
+        //            print(item)
+        // If any property is absent, then complete the current iteration.
+        //            self.getVideoById(videoId: item.id.videoID)
+        //        }
     }
     
-    private func getVideoById(videoId: String) {
-        ServerAPIManager.getVideosById(
-            params: ["part": "snippet,contentDetails,statistics",
-                     "id" : videoId,
-                     "key": Constants.API.apiKey
-            ])
-        { (result, success, error) in
-            if success, let video = result as? VideoModel {
-                guard
-                    let videoId = video.items?[0].id,
-                    let imageUrl = video.items?[0].snippet.thumbnails.maxres?.url,
-                    let title = video.items?[0].snippet.title,
-                    let duration = video.items?[0].contentDetails.duration,
-                    let viewsCount = Int(video.items?[0].statistics?.viewCount ?? "0"),
-                    let datePublished = video.items?[0].snippet.publishedAt
-                    else { return }
-                // Create an object that contains video properties.
-                let videoObject = VideoObject(viedoId: videoId, imageUrl: imageUrl , title: title , duration: duration, viewsCount: viewsCount , datePublished: datePublished )
-                self.videoObjects.append(videoObject)
-                DispatchQueue.main.async {
-                    self.reloadTableView()
-                }
-                
-            } else {
-                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
-            }
-        }
-    }
+    //    private func getVideoById(videoId: String) {
+    //        ServerAPIManager.getVideosById(
+    //            params: VideoRequest(id: videoId, key: Constants.API.apiKey))
+    //        { (result, success, error) in
+    //            if success, let videoInfo = result as? VideoModel {
+    //                // Create an object that contains video properties.
+    //                guard let videoObject = VideoObject(with: videoInfo) else { return }
+    //                self.videoObjects.append(videoObject)
+    //                DispatchQueue.main.async {
+    //                    self.reloadTableView()
+    //                }
+    //            } else {
+    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+    //            }
+    //        }
+    //    }
     
-    private func reloadTableView() {
-        // Sort video by the number of views.
-        self.videoObjects = self.videoObjects.sorted {$0.viewsCount > $1.viewsCount}
-        self.tableView?.reloadData()
-    }
+    //     func getVideoById(videoId: String) {
+    //        ServerAPIManager.getVideosById(
+    //            params: ["part": "snippet,contentDetails,statistics",
+    //                     "id" : videoId,
+    //                     "key": Constants.API.apiKey
+    //            ])
+    //        { (result, success, error) in
+    //            if success, let videoInfo = result as? VideoModel {
+    //                // Create an object that contains video properties.
+    //                guard let videoObject = VideoObject(with: videoInfo) else { return }
+    //                self.videoObjects.append(videoObject)
+    //                DispatchQueue.main.async {
+    //                    self.reloadTableView()
+    //                }
+    //            } else {
+    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+    //            }
+    //        }
+    //    }
+    
+    //    func reloadTableView() {
+    //        // Sort video by the number of views.
+    //        self.videoObjects = self.videoObjects.sorted {$0.viewsCount > $1.viewsCount}
+    //        self.tableView?.reloadData()
+    //    }
     
     //MARK: Actions
     @IBAction func selectCountryAction(_ sender: Any) {
@@ -124,12 +182,12 @@ class RootVC: UIViewController {
     @IBAction func doneToolBarAction(_ sender: Any) {
         countryPickerView?.isHidden = true
         setTitleNavBar()
-        downloadViedoList(params: [
-            "part": "snippet",
-            "maxResults": countResultVideo,
-            "regionCode": currentCountryCode,
-            "order": "viewCount",
-            "type": "video",
-            "key": Constants.API.apiKey])
+        //        downloadViedoList(params: [
+        //            "part": "snippet",
+        //            "maxResults": countResultVideo,
+        //            "regionCode": currentCountryCode,
+        //            "order": "viewCount",
+        //            "type": "video",
+        //            "key": Constants.API.apiKey])
     }
 }

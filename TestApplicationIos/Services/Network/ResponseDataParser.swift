@@ -26,17 +26,15 @@ class ResponseDataParser {
         return error
     }
     
-    class func parse<T: Codable>(from statusCode: Int, responseData: Data?, type: T.Type) -> (dataParsed: T?, error: String?) {
+    class func parse<T: Codable>(responseData: Data?, type: T.Type) -> (dataParsed: T?, error: String?) {
         guard let data = responseData else {
             return (dataParsed: nil, error: "Server error")
         }
-        if statusCode < 300 {
-            do {
-                let dataParsed = try JSONDecoder().decode(T.self, from: data)
-                return (dataParsed: dataParsed, error: nil)
-            } catch let error {
-                print(error)
-            }
+        do {
+            let dataParsed = try JSONDecoder().decode(T.self, from: data)
+            return (dataParsed: dataParsed, error: nil)
+        } catch let error {
+            print(error)
         }
         return (dataParsed: nil, error: "Server error")
     }

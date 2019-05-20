@@ -14,7 +14,7 @@ struct VideoListModel: Codable {
     let items: [Item]
 }
 
-struct Item: Codable {
+@objc class Item: NSObject, Codable {
     let kind: String
     let etag: String
     let id: ID

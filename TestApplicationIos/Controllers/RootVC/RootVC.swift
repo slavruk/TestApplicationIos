@@ -16,6 +16,8 @@ class RootVC: UIViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var countryPickerView: UIView?
     @IBOutlet weak var countryPicker: CountryPicker?
+    @IBOutlet weak var downloadVideoListManager: DownloadVideoListProtocol?
+    @IBOutlet weak var infoVideoObject: InfoVideoObject?
     
     //MARK: Constants
     let countResultVideo = 10
@@ -23,42 +25,15 @@ class RootVC: UIViewController {
     //MARK: Variables
     var currentCountryName = "Ukraine"
     var currentCountryCode = "UA"
-    //    var videoList: [Item] = []
-    //    lazy var downloadVideoListManager: DownloadVideoListManager = {
-    //        let manager = DownloadVideoListManager(downloadVideoList: self)
-    //        return manager
-    //    }()
-    var downloadVideoListManager: DownloadVideoListManager
-    
-    init(downloadVideoListManager: DownloadVideoListManager) {
-        self.downloadVideoListManager = downloadVideoListManager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    var countVideosInList = 0
+    var videoObjects: [VideoObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTitleNavBar()
         setTableView()
         setCountryPicker()
-        downloadVideoListManager.downloadVideoList(params: [
-            "part": "snippet",
-            "maxResults": countResultVideo,
-            "regionCode": currentCountryCode,
-            "order": "viewCount",
-            "type": "video",
-            "key": Constants.API.apiKey])
-        //        downloadViedoList(params: [
-        //            "part": "snippet",
-        //            "maxResults": countResultVideo,
-        //            "regionCode": currentCountryCode,
-        //            "order": "viewCount",
-        //            "type": "video",
-        //            "key": Constants.API.apiKey])
+        getVideoList()
     }
     
     private func setTitleNavBar() {
@@ -77,44 +52,27 @@ class RootVC: UIViewController {
         countryPicker?.setCountry(code)
     }
     
-    /*
-     Gets a list of videos according to the search criteria.
-     */
-    //    func downloadViedoList(params: [String: Any]) {
-    //        LSActivityIndicator.showIndicator(fullScreen: false)
-    //        ServerAPIManager.getVideosList(
-    //            params: params)
-    //        { (result, success, error) in
-    //            LSActivityIndicator.hideIndicator()
-    //            if success, let videoList = result as? VideoListModel {
-    //                self.videoObjects.removeAll()
-    //                for item in videoList.items {
-    //                    // If any property is absent, then complete the current iteration.
-    //                    self.getVideoById(videoId: item.id.videoID)
-    //                }
-    //            } else {
-    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
-    //            }
-    //        }
-    //    }
-    
-    //    func downloadViedoList(params: VideoListRequest) {
-    //        LSActivityIndicator.showIndicator(fullScreen: false)
-    //        ServerAPIManager.getVideosList(
-    //            params: params)
-    //        { (result, success, error) in
-    //            LSActivityIndicator.hideIndicator()
-    //            if success, let videoList = result as? VideoListModel {
-    //                self.videoObjects.removeAll()
-    //                for item in videoList.items {
-    //                    // If any property is absent, then complete the current iteration.
-    //                    self.getVideoById(videoId: item.id.videoID)
-    //                }
-    //            } else {
-    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
-    //            }
-    //        }
-    //    }
+    private func getVideoList() {
+        downloadVideoListManager?.downloadVideoList(params: [
+            "part": "snippet",
+            "maxResults": countResultVideo,
+            "regionCode": currentCountryCode,
+            "order": "viewCount",
+            "type": "video",
+            "key": Constants.API.apiKey])
+        { (success, error) in
+            if success {
+                guard let videoList = self.downloadVideoListManager?.videolist else { return }
+                self.countVideosInList = videoList.count
+                self.videoObjects.removeAll()
+                for video in videoList {
+                    self.getVideoById(videoId: video.id.videoID)
+                }
+            } else {
+                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+            }
+        }
+    }
     
     func updateSearchVideoList(videoList items: [Item]) {
         //        videoList = items
@@ -126,42 +84,25 @@ class RootVC: UIViewController {
         //        }
     }
     
-    //    private func getVideoById(videoId: String) {
-    //        ServerAPIManager.getVideosById(
-    //            params: VideoRequest(id: videoId, key: Constants.API.apiKey))
-    //        { (result, success, error) in
-    //            if success, let videoInfo = result as? VideoModel {
-    //                // Create an object that contains video properties.
-    //                guard let videoObject = VideoObject(with: videoInfo) else { return }
-    //                self.videoObjects.append(videoObject)
-    //                DispatchQueue.main.async {
-    //                    self.reloadTableView()
-    //                }
-    //            } else {
-    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
-    //            }
-    //        }
-    //    }
-    
-    //     func getVideoById(videoId: String) {
-    //        ServerAPIManager.getVideosById(
-    //            params: ["part": "snippet,contentDetails,statistics",
-    //                     "id" : videoId,
-    //                     "key": Constants.API.apiKey
-    //            ])
-    //        { (result, success, error) in
-    //            if success, let videoInfo = result as? VideoModel {
-    //                // Create an object that contains video properties.
-    //                guard let videoObject = VideoObject(with: videoInfo) else { return }
-    //                self.videoObjects.append(videoObject)
-    //                DispatchQueue.main.async {
-    //                    self.reloadTableView()
-    //                }
-    //            } else {
-    //                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
-    //            }
-    //        }
-    //    }
+    func getVideoById(videoId: String) {
+        ServerAPIManager.getVideosById(
+            params: ["part": "snippet,contentDetails,statistics",
+                     "id" : videoId,
+                     "key": Constants.API.apiKey
+            ])
+        { (result, success, error) in
+            if success, let videoInfo = result as? VideoModel {
+                // Create an object that contains video properties.
+                //                    guard let videoObject = VideoObject(with: videoInfo) else { return }
+                self.videoObjects.append(VideoObject(with: videoInfo))
+                DispatchQueue.main.async {
+                    self.tableView?.reloadData()
+                }
+            } else {
+                UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+            }
+        }
+    }
     
     //    func reloadTableView() {
     //        // Sort video by the number of views.

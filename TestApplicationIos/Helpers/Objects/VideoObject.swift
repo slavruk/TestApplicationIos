@@ -17,22 +17,13 @@ class VideoObject {
     let viewsCount: String
     let datePublished: String
     
-//    init(viedoId: String, imageUrl: String, title: String, duration: String, viewsCount: Int, datePublished: String) {
-//        self.viedoId = viedoId
-//        self.imageUrl = imageUrl
-//        self.title = title
-//        self.duration = duration
-//        self.viewsCount = viewsCount
-//        self.datePublished = datePublished
-//    }
-    
-    init?(with model: VideoModel) {
-        guard let videoInfo = model.items?[0] else { return nil }
-        viedoId = videoInfo.id
-        imageUrl = videoInfo.snippet.thumbnails.maxres?.url ?? ""
-        title = videoInfo.snippet.title
-        duration = videoInfo.contentDetails.duration
-        viewsCount = videoInfo.statistics?.viewCount ?? "0"
-        datePublished = videoInfo.snippet.publishedAt
+    init(with model: VideoModel) {
+//        guard let videoInfo = model.items?[0] else { return }
+        viedoId = model.items?[0].id ?? ""
+        imageUrl = model.items?[0].snippet.thumbnails.maxres?.url ?? ""
+        title = model.items?[0].snippet.title ?? ""
+        duration = model.items?[0].contentDetails.duration ?? "0"
+        viewsCount = model.items?[0].statistics?.viewCount ?? "0"
+        datePublished = model.items?[0].snippet.publishedAt ?? ""
     }
 }

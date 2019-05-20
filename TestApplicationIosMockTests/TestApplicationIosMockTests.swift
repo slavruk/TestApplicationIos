@@ -12,41 +12,71 @@ import XCTest
 
 class MockDownloadVideoListManager: DownloadVideoListProtocol {
     
-    var videoList: [Item] = []
+    var videolist: [Item]
     
-    func downloadVideoList(params: [String : Any]) {
+    init() {
+        videolist = []
+    }
+    
+    func downloadVideoList(params: [String : Any], completion: @escaping (DowloadVideoCompetionHandler)) {
         LSActivityIndicator.showIndicator(fullScreen: false)
         ServerAPIManager.getVideosList(params: params)
         { (result, success, error) in
             LSActivityIndicator.hideIndicator()
             if success, let videoList = result as? VideoListModel {
-                self.videoList = videoList.items
+                self.videolist = videoList.items
+                completion(true, "")
             } else {
-                //UIHelper.showConfirmationAlertWith(title: "Error", message: error, action: nil, inViewController: self)
+                completion(false, error ?? "error")
             }
         }
-    }
-    
-    func getVideoList() -> [AnyObject] {
-        return videoList as [AnyObject]
     }
     
     
 }
 
 class TestApplicationIosMockTests: XCTestCase {
-
+    
+    var controllerUnderTest: RootVC!
+    var mockDownloadVideoListManager: MockDownloadVideoListManager?
+	
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        controllerUnderTest = UIStoryboard(name: "RootVC", bundle: nil).instantiateViewController(withIdentifier: "RootViewController") as? RootVC
+        mockDownloadVideoListManager = MockDownloadVideoListManager()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        controllerUnderTest = nil
+        mockDownloadVideoListManager = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test_downloadVideoList() {
+        guard let videoList = mockDownloadVideoListManager?.videolist else {
+            XCTFail("Error load mockDownloadListManager")
+            return
+        }
+        //Given
+        let expectation = self.expectation(description: "Status code: 200")
+        XCTAssertTrue(videoList.isEmpty, "The videoObjects array is not empty.")
+        mockDownloadVideoListManager?.downloadVideoList(params: [
+            "part": "snippet",
+            "maxResults": 10,
+            "regionCode": "UA",
+            "order": "viewCount",
+            "type": "video",
+            "key": Constants.API.apiKey])
+        { (success, error) in
+            // When
+            if success {
+                XCTAssertTrue(success, "Data not loaded")
+            } else {
+                XCTAssertGreaterThan(error.count, 0, "No error message.")
+            }
+            // Then
+            XCTAssertEqual(self.mockDownloadVideoListManager?.videolist.count, 10, "The number of videos in array is not equal to 10.")
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 
     func testPerformanceExample() {

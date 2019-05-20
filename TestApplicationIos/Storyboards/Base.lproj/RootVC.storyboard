@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xcD-CK-QbE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,22 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="h0P-Iy-1sf">
-            <objects>
-                <navigationController id="xcD-CK-QbE" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5nv-ml-6Te">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Alc-72-JnA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tCO-xi-fQN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1543" y="-1"/>
-        </scene>
         <!--RootVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -35,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bBB-cR-I8w">
-                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="7us-At-2c9"/>
@@ -92,14 +76,14 @@
                                 </constraints>
                             </view>
                             <searchBar contentMode="redraw" placeholder="Search you video" translatesAutoresizingMaskIntoConstraints="NO" id="ucF-X0-xeY">
-                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Aun-Vg-KaJ"/>
                                 </connections>
                             </searchBar>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ucF-X0-xeY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4uK-Su-3Ky"/>
@@ -136,13 +120,17 @@
                     <connections>
                         <outlet property="countryPicker" destination="t2v-fM-n2h" id="iOQ-2c-zGY"/>
                         <outlet property="countryPickerView" destination="16L-Pj-Ygc" id="onK-m6-2cl"/>
+                        <outlet property="downloadVideoListManager" destination="MC5-Ln-4xb" id="mCL-4G-sbc"/>
+                        <outlet property="infoVideoObject" destination="a8S-uo-9uo" id="puQ-L2-CcH"/>
                         <outlet property="searchBar" destination="ucF-X0-xeY" id="kM4-ck-ICv"/>
                         <outlet property="tableView" destination="bBB-cR-I8w" id="x4z-2v-bc6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="MC5-Ln-4xb" customClass="DownloadVideoListManager" customModule="TestApplicationIos" customModuleProvider="target"/>
+                <customObject id="a8S-uo-9uo" customClass="InfoVideoObject" customModule="TestApplicationIos" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="-510.14492753623193" y="-1.3392857142857142"/>
+            <point key="canvasLocation" x="-786" y="-6"/>
         </scene>
     </scenes>
 </document>

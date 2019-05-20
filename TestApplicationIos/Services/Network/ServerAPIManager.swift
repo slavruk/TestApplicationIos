@@ -14,8 +14,6 @@ class ServerAPIManager {
     
     class func getVideosList(params: [String:Any], completion: @escaping (NetworkCompletionBlock)) {
         let requestURL = Constants.API.searchViedos
-//        let encoder = JSONEncoder()
-//        let jsonData = try! encoder.encode(params)
         AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
             switch responseData.result {

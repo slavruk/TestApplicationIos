@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ServerAPIManager {
+final class ServerAPIManager {
     
     typealias NetworkCompletionBlock = (_ result: AnyObject?, _ isSuccess: Bool, _ errorMessage: String?) -> Void
     
@@ -41,7 +41,7 @@ class ServerAPIManager {
             print(responseData)
             switch responseData.result {
             case .success:
-                let resultParsed = ResponseDataParser.parse(responseData: responseData.data, type: VideoModel.self)
+                let resultParsed = ResponseDataParser.parse(responseData: responseData.data, type: VideoInfoModel.self)
                 if let data = resultParsed.dataParsed {
                     completion(data as AnyObject, true, nil)
                 } else {

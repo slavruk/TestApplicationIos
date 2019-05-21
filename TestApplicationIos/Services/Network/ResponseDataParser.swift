@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ResponseDataParser {
+final class ResponseDataParser {
     
     class func parse(_ responseData: Data?) -> [String: Any]? {
         guard let responseData = responseData,

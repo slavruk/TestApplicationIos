@@ -17,13 +17,13 @@ extension RootVC: UISearchBarDelegate {
             "regionCode": currentCountryCode,
             "order": "viewCount",
             "type": "video",
-            "key": Constants.API.apiKey]
-//        if !searchText.isEmpty {
-//            params["q"] = searchText
-//            downloadViedoList(params: params)
-//        } else {
-//            params["q"] = nil
-//            downloadViedoList(params: params)
-//        }
+            "key": Constants.API.apiKey ?? ""]
+        if !searchText.isEmpty {
+            params["q"] = searchText
+            getVideoList(params: params)
+        } else {
+            params["q"] = nil
+            getVideoList(params: params)
+        }
     }
 }

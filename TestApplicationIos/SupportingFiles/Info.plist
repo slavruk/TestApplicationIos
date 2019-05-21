@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>YoutubeApiKey</key>
+	<string>AIzaSyCBBl2czmm5gcNe_arkRBqJ4yDTM9XGYRQ</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<string>youtube</string>
 	<key>CFBundleDevelopmentRegion</key>

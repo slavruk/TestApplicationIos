@@ -11,7 +11,7 @@ import Foundation
 struct Constants {
     struct API {
         
-        static var apiKey = "AIzaSyCBBl2czmm5gcNe_arkRBqJ4yDTM9XGYRQ"
+        static var apiKey = Bundle.main.object(forInfoDictionaryKey: "YoutubeApiKey") as? String
         static var hostYouTube = URL(string: "https://www.googleapis.com/youtube")!
         
         static let searchViedos = hostYouTube.appendingPathComponent("/v3/search")
@@ -20,3 +20,4 @@ struct Constants {
 
     }
 }
+

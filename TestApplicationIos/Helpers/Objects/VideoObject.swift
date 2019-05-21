@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoObject {
+@objc final class VideoObject: NSObject {
     
     let viedoId: String
     let imageUrl: String
@@ -17,7 +17,7 @@ class VideoObject {
     let viewsCount: String
     let datePublished: String
     
-    init(with model: VideoModel) {
+    init(with model: VideoInfoModel) {
 //        guard let videoInfo = model.items?[0] else { return }
         viedoId = model.items?[0].id ?? ""
         imageUrl = model.items?[0].snippet.thumbnails.maxres?.url ?? ""

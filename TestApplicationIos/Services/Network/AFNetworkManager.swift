@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class AFNetworkManager {
+final class AFNetworkManager {
     
     static let shared = AFNetworkManager()
     

@@ -37,7 +37,7 @@ class TestApplicationIosFakeTests: XCTestCase {
             "regionCode": "UA",
             "order": "viewCount",
             "type": "video",
-            "key": Constants.API.apiKey]
+            "key": Constants.API.apiKey ?? ""]
         // When
         AFNetworkManager.getRequestWith(methodPath: url, params: params) { (response) in
             // Then
@@ -56,7 +56,7 @@ class TestApplicationIosFakeTests: XCTestCase {
         let params: [String: Any] = [
             "part": "snippet,contentDetails,statistics",
             "id": "CevxZvSJLk8",
-            "key": Constants.API.apiKey]
+            "key": Constants.API.apiKey ?? ""]
         // When
         AFNetworkManager.getRequestWith(methodPath: url, params: params) { (response) in
             // Then
@@ -93,7 +93,7 @@ class TestApplicationIosFakeTests: XCTestCase {
         
         // when
         XCTAssertNotNil(data)
-        let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoModel.self)
+        let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoInfoModel.self)
         
         // then
         if let data = resultParsed.dataParsed {
@@ -102,26 +102,4 @@ class TestApplicationIosFakeTests: XCTestCase {
             XCTFail("Parsing json error")
         }
     }
-    
-    func test_DownloadVideoList() {
-        let params: [String: Any] = [
-            "part": "snippet",
-            "maxResults": 10,
-            "regionCode": "UA",
-            "order": "viewCount",
-            "type": "video",
-            "key": Constants.API.apiKey]
-        // This is an example of a performance test case.
-        self.measure {
-//            self.controllerUnderTest.downloadViedoList(params: params)
-        }
-    }
-    
-    func test_DownloadVideoById() {
-        // This is an example of a performance test case.
-        self.measure {
-//            self.controllerUnderTest.getVideoById(videoId: "CevxZvSJLk8")
-        }
-    }
-    
 }

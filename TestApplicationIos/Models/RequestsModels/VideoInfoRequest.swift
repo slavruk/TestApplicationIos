@@ -1,5 +1,5 @@
 //
-//  VideoRequest.swift
+//  VideoInfoRequest.swift
 //  TestApplicationIos
 //
 //  Created by Stas Lavruk on 5/16/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct VideoRequest: Codable {
+struct VideoInfoRequest: Codable {
     let part: String = "snippet,contentDetails,statistics"
     let id: String
     let key: String

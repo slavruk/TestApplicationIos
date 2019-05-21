@@ -63,21 +63,22 @@ class TestApplicationIosMockTests: XCTestCase {
     
     func test_getInfoVideoById() {
         // Given
+        let testVideoId = "CsKls-A0anc"
         let expectation = self.expectation(description: "Status code: 200.")
-        mockVideoInfoContainer?.getVideoById(videoId: "JGwWNGJdvx8", completion:
+        mockVideoInfoContainer?.getVideoById(videoId: testVideoId, completion:
             { (success, result, error) in
                 // When
                 XCTAssertNotNil(result, "No data")
                 if success, let videoInfo = result as? VideoInfoModel {
                     XCTAssertTrue(success, "Incorrect value.")
                     XCTAssertNotNil(videoInfo, "No data parsed.")
-                    XCTAssertNotNil(self.mockVideoInfoContainer?.video, "Error properties 'video' in MockVideoInfoContainer equal nil.")
+                    XCTAssertNotNil(self.mockVideoInfoContainer?.videoObject, "Error properties 'video' in MockVideoInfoContainer equal nil.")
                 } else {
                     XCTAssertFalse(success, "Incorrect value.")
                     XCTAssertGreaterThan(error.count, 0, "No error message.")
                 }
                 // Then
-                XCTAssertEqual(self.mockVideoInfoContainer?.video?.viedoId, "JGwWNGJdvx8", "Id not equal to expected.")
+                XCTAssertEqual(self.mockVideoInfoContainer?.videoObject?.viedoId, testVideoId, "Id not equal to expected.")
                 expectation.fulfill()
         })
         waitForExpectations(timeout: 5.0, handler: nil)

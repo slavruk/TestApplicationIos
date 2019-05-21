@@ -72,11 +72,11 @@ class TestApplicationIosFakeTests: XCTestCase {
         // Given
         let data = self.stub(urlString: "videoList")
         
-        // when
-        XCTAssertNotNil(data)
+        // When
+        XCTAssertGreaterThan(data.count, 0, "No data")
         let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoListModel.self)
         
-        // then
+        // Then
         if let data = resultParsed.dataParsed {
             XCTAssertNotNil(data)
             XCTAssertEqual(data.items.count, 10, "Didn't parse 10 items from fake response")
@@ -91,11 +91,11 @@ class TestApplicationIosFakeTests: XCTestCase {
         // Given
         let data = self.stub(urlString: "videoInfo")
         
-        // when
-        XCTAssertNotNil(data)
+        // When
+        XCTAssertGreaterThan(data.count, 0, "No data")
         let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoInfoModel.self)
         
-        // then
+        // Then
         if let data = resultParsed.dataParsed {
             XCTAssertNotNil(data)
         } else {

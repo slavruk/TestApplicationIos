@@ -11,8 +11,8 @@ import Foundation
 extension TestApplicationIosFakeTests {
     func stub(urlString: String) -> Data {
         let bundle = Bundle(for: type(of: self))
-        let path = bundle.path(forResource: urlString, ofType: "json")
-        let data = try? Data(contentsOf: URL(fileURLWithPath: path!), options: .alwaysMapped)
+        guard let path = bundle.path(forResource: urlString, ofType: "json") else { return Data() }
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
         return data ?? Data()
     }
 }

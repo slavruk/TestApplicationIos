@@ -34,7 +34,7 @@ final class RootVC: UIViewController {
         setTitleNavBar()
         setTableView()
         setCountryPicker()
-//        setVideoList()
+        setVideoList()
     }
     
     private func setTitleNavBar() {

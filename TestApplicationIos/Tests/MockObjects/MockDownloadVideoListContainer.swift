@@ -15,7 +15,7 @@ class MockDownloadVideoListContainer: DownloadVideoListProtocol {
     var videoList: [Item]
     
     init() {
-        videolist = []
+        videoList = []
     }
     
     func downloadVideoList(params: [String : Any], completion: @escaping (DowloadVideoCompetionHandler)) {
@@ -24,7 +24,7 @@ class MockDownloadVideoListContainer: DownloadVideoListProtocol {
         { (result, success, error) in
             LSActivityIndicator.hideIndicator()
             if success, let videoList = result as? VideoListModel {
-                self.videolist = videoList.items
+                self.videoList = videoList.items
                 completion(true, videoList as AnyObject, "")
             } else {
                 completion(false, nil, error ?? "error")

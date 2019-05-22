@@ -9,6 +9,7 @@
 import Foundation
 
 extension TestApplicationIosFakeTests {
+    
     func stub(urlString: String) -> Data {
         let bundle = Bundle(for: type(of: self))
         guard let path = bundle.path(forResource: urlString, ofType: "json") else { return Data() }

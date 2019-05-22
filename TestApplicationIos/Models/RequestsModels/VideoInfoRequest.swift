@@ -8,13 +8,12 @@
 
 import Foundation
 
-struct VideoInfoRequest: Codable {
+@objc class VideoInfoRequest: NSObject, Codable {
     let part: String = "snippet,contentDetails,statistics"
     let id: String
-    let key: String
+    let key: String = Constants.API.apiKey ?? ""
     
-    init(id: String, key: String) {
+    init(id: String) {
         self.id = id
-        self.key = key
     }
 }

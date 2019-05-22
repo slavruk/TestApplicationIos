@@ -12,7 +12,7 @@ import Foundation
     
     var videoList: [Item] { get }
     
-    func downloadVideoList(params: [String : Any], completion: @escaping (DowloadVideoCompetionHandler))
+    func downloadVideoList(params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler))
 }
 
 typealias DowloadVideoCompetionHandler = (_ success: Bool, _ result: AnyObject?, _ error: String) -> Void
@@ -25,7 +25,7 @@ final class VideoListContainer: NSObject, DownloadVideoListProtocol {
         videoList = []
     }
     
-    func downloadVideoList(params: [String : Any], completion: @escaping (DowloadVideoCompetionHandler)) {
+    func downloadVideoList(params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler)) {
         LSActivityIndicator.showIndicator(fullScreen: false)
         ServerAPIManager.getVideosList(params: params)
         { (result, success, error) in

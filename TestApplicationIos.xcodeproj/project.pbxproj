@@ -32,7 +32,6 @@
 		F4881FD7E0486746D914E919 /* Pods_TestApplicationIosFakeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168F240B537764BCCBE89937 /* Pods_TestApplicationIosFakeTests.framework */; };
 		FB4E44D622941820008ADD84 /* videoInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = FB88F79A228E8753000F44E8 /* videoInfo.json */; };
 		FB4E44D722941874008ADD84 /* videoList.json in Resources */ = {isa = PBXBuildFile; fileRef = FB88F79D228E8855000F44E8 /* videoList.json */; };
-		FB88F793228E8071000F44E8 /* TestApplicationIosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88F792228E8071000F44E8 /* TestApplicationIosTests.swift */; };
 		FB88F7A0228EA4E5000F44E8 /* VideoListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88F79F228EA4E5000F44E8 /* VideoListContainer.swift */; };
 		FB88F7A8228EDC4C000F44E8 /* TestApplicationIosMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88F7A7228EDC4C000F44E8 /* TestApplicationIosMockTests.swift */; };
 		FB8F89A3229279A300B8512B /* VideoInfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8F89A2229279A300B8512B /* VideoInfoContainer.swift */; };
@@ -100,10 +99,8 @@
 		85E64C12DB2CB2EC8C9D5D68 /* Pods_TestApplicationIos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestApplicationIos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42204952DDA9C91B3B0BEF1 /* Pods-TestApplicationIosFakeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApplicationIosFakeTests.release.xcconfig"; path = "Target Support Files/Pods-TestApplicationIosFakeTests/Pods-TestApplicationIosFakeTests.release.xcconfig"; sourceTree = "<group>"; };
 		E70EB4D36E851E5D0E70AADD /* Pods-TestApplicationIos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApplicationIos.debug.xcconfig"; path = "Target Support Files/Pods-TestApplicationIos/Pods-TestApplicationIos.debug.xcconfig"; sourceTree = "<group>"; };
-		FB4E44CD22940F40008ADD84 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB4E44CF22941011008ADD84 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB88F790228E8071000F44E8 /* TestApplicationIosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestApplicationIosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88F792228E8071000F44E8 /* TestApplicationIosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestApplicationIosTests.swift; sourceTree = "<group>"; };
 		FB88F79A228E8753000F44E8 /* videoInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoInfo.json; sourceTree = "<group>"; };
 		FB88F79D228E8855000F44E8 /* videoList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoList.json; sourceTree = "<group>"; };
 		FB88F79F228EA4E5000F44E8 /* VideoListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListContainer.swift; sourceTree = "<group>"; };
@@ -341,15 +338,6 @@
 			path = RootTableViewCell;
 			sourceTree = "<group>";
 		};
-		FB88F791228E8071000F44E8 /* TestApplicationIosTests */ = {
-			isa = PBXGroup;
-			children = (
-				FB88F792228E8071000F44E8 /* TestApplicationIosTests.swift */,
-				FB4E44CD22940F40008ADD84 /* Info.plist */,
-			);
-			path = TestApplicationIosTests;
-			sourceTree = "<group>";
-		};
 		FB88F7A6228EDC4C000F44E8 /* TestApplicationIosMockTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,7 +375,6 @@
 				FBE533752293CD9D00F2CA98 /* MockObjects */,
 				FB88F7A6228EDC4C000F44E8 /* TestApplicationIosMockTests */,
 				FBFF9FD1228D354F00199EFA /* TestApplicationIosFakeTests */,
-				FB88F791228E8071000F44E8 /* TestApplicationIosTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -696,7 +683,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB88F793228E8071000F44E8 /* TestApplicationIosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

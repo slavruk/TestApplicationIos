@@ -15,6 +15,8 @@ import XCTest
 
 class TestApplicationIosFakeTests: XCTestCase {
     
+    let testVideoId = "CsKls-A0anc"
+    
     var controllerUnderTest: RootVC!
     
     override func setUp() {
@@ -29,17 +31,17 @@ class TestApplicationIosFakeTests: XCTestCase {
     
     func test_RequestSearchVideoList() {
         // Given
+        
         let expectation = self.expectation(description: "Status code: 200")
         let url = Constants.API.searchViedos
-        let params: [String: Any] = [
-            "part": "snippet",
-            "maxResults": 10,
-            "regionCode": "UA",
-            "order": "viewCount",
-            "type": "video",
-            "key": Constants.API.apiKey ?? ""]
+        let params = VideoListRequest(
+            maxResults: 10,
+            regionCode: "UA",
+            q: "")
+        
         // When
         AFNetworkManager.getRequestWith(methodPath: url, params: params) { (response) in
+            
             // Then
             XCTAssertNil(response.error, "Error \(response.error!.localizedDescription)")
             XCTAssertNotNil(response, "No response")
@@ -51,14 +53,14 @@ class TestApplicationIosFakeTests: XCTestCase {
     
     func test_RequestGetVideoById() {
         // Given
+        
         let expectation = self.expectation(description: "Status code: 200")
         let url = Constants.API.getVideoById
-        let params: [String: Any] = [
-            "part": "snippet,contentDetails,statistics",
-            "id": "CevxZvSJLk8",
-            "key": Constants.API.apiKey ?? ""]
+        let params = VideoInfoRequest(id: testVideoId)
+        
         // When
         AFNetworkManager.getRequestWith(methodPath: url, params: params) { (response) in
+            
             // Then
             XCTAssertNil(response.error, "Error \(response.error!.localizedDescription)")
             XCTAssertNotNil(response, "No response")

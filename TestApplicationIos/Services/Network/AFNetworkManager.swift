@@ -11,33 +11,29 @@ import Alamofire
 
 final class AFNetworkManager {
     
-    static let shared = AFNetworkManager()
-    
     private class var header: HTTPHeaders? {
         return ["Content-Type": "application/json",
                 "Accept": "application/json"]
     }
     
-//    class func getRequestWith(methodPath: URL,
-//                              params: Data,
-//                              completion: @escaping (_ responseData: (DataResponse<Any>)) -> ()) {
-//        var request = URLRequest(url: methodPath)
-//        request.httpMethod = HTTPMethod.put.rawValue
-//        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = params
-//        Alamofire.request(request).responseJSON { (requestData) in
-//            completion(requestData)
-//        }
-//    }
-    
-    class func getRequestWith(methodPath: URL,
-                              params:[String:Any]?,
+    class func getRequestWith<T: Codable>(methodPath: URL,
+                              params: T,
                               completion: @escaping (_ responseData: (DataResponse<Any>)) -> ()) {
-        Alamofire.request(methodPath,
-                          method: .get,
-                          parameters: params,
-                          headers: header).responseJSON { (requestData) in
-                            completion(requestData)
-        }.validate()
+        let encoder = JSONEncoder()
+        let jsonData = try! encoder.encode(params)
+        do {
+            let dict = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? Parameters
+            Alamofire.request(
+                methodPath,
+                method: .get,
+                parameters: dict,
+                encoding: URLEncoding.default,
+                headers: self.header
+                )
+                .validate()
+                .responseJSON { (requestData) in
+                completion(requestData)
+            }
+        } catch { print(error) }
     }
 }

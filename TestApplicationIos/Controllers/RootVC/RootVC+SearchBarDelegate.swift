@@ -11,18 +11,17 @@ import UIKit
 extension RootVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        var params: [String : Any] = [
-            "part": "snippet",
-            "maxResults": countResultVideo,
-            "regionCode": currentCountryCode,
-            "order": "viewCount",
-            "type": "video",
-            "key": Constants.API.apiKey ?? ""]
+        let params = VideoListRequest(
+            maxResults: countResultVideo,
+            regionCode: currentCountryCode,
+            q: "")
         if !searchText.isEmpty {
-            params["q"] = searchText
+            params.q = searchText
+//            params["q"] = searchText
             getVideoList(params: params)
         } else {
-            params["q"] = nil
+            params.q = nil
+//            params["q"] = nil
             getVideoList(params: params)
         }
     }

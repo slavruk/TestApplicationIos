@@ -8,19 +8,20 @@
 
 import Foundation
 
-struct VideoListRequest: Codable {
+@objc class VideoListRequest: NSObject, Codable {
     let part: String = "snippet"
     let maxResults: Int
     let regionCode: String
     let order: String = "viewCount"
     let type: String = "video"
-    let key: URL
+    let key: String = Constants.API.apiKey ?? ""
+    var q: String?
     
     init(maxResults: Int,
          regionCode: String,
-         key: URL) {
+         q: String) {
         self.maxResults = maxResults
         self.regionCode = regionCode
-        self.key = key
+        self.q = q
     }
 }

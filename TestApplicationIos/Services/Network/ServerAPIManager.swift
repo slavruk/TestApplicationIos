@@ -12,7 +12,7 @@ final class ServerAPIManager {
     
     typealias NetworkCompletionBlock = (_ result: AnyObject?, _ isSuccess: Bool, _ errorMessage: String?) -> Void
     
-    class func getVideosList(params: [String:Any], completion: @escaping (NetworkCompletionBlock)) {
+    class func getVideosList(params: VideoListRequest, completion: @escaping (NetworkCompletionBlock)) {
         let requestURL = Constants.API.searchViedos
         AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
@@ -32,13 +32,10 @@ final class ServerAPIManager {
         }
     }
     
-    class func getVideosById(params: [String:Any], completion: @escaping (NetworkCompletionBlock)) {
+    class func getVideosById(params: VideoInfoRequest, completion: @escaping (NetworkCompletionBlock)) {
         let requestURL = Constants.API.getVideoById
-//        let encoder = JSONEncoder()
-//        let jsonData = try! encoder.encode(params)
         AFNetworkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
-            print(responseData)
             switch responseData.result {
             case .success:
                 let resultParsed = ResponseDataParser.parse(responseData: responseData.data, type: VideoInfoModel.self)

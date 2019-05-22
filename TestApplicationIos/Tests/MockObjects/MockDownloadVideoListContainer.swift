@@ -18,7 +18,20 @@ class MockDownloadVideoListContainer: DownloadVideoListProtocol {
         videoList = []
     }
     
-    func downloadVideoList(params: [String : Any], completion: @escaping (DowloadVideoCompetionHandler)) {
+//    func downloadVideoList(params: [String : Any], completion: @escaping (DowloadVideoCompetionHandler)) {
+//        LSActivityIndicator.showIndicator(fullScreen: false)
+//        ServerAPIManager.getVideosList(params: params)
+//        { (result, success, error) in
+//            LSActivityIndicator.hideIndicator()
+//            if success, let videoList = result as? VideoListModel {
+//                self.videoList = videoList.items
+//                completion(true, videoList as AnyObject, "")
+//            } else {
+//                completion(false, nil, error ?? "error")
+//            }
+//        }
+//    }
+    func downloadVideoList(params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler)) {
         LSActivityIndicator.showIndicator(fullScreen: false)
         ServerAPIManager.getVideosList(params: params)
         { (result, success, error) in
@@ -31,4 +44,5 @@ class MockDownloadVideoListContainer: DownloadVideoListProtocol {
             }
         }
     }
+
 }

@@ -10,19 +10,25 @@ import Foundation
 
 @objc protocol InfoVideoProtocol {
     
-    var videoObject: VideoObject? { get }
+    var videoObject: VideoObject { get }
     
-    func getVideoById(params: VideoInfoRequest, completion: @escaping (VideoInfoContainerCompetionHandler))
+    func getVideoById(requestURL: URL, params: VideoInfoRequest, completion: @escaping (VideoInfoContainerCompetionHandler))
 }
 
-typealias VideoInfoContainerCompetionHandler = (_ success: Bool, _ result: AnyObject?, _ error: String) -> Void
+typealias VideoInfoContainerCompetionHandler = (_ success: Bool, _ result: AnyObject?, _ error: String?) -> Void
 
 final class VideoInfoContainer: NSObject, InfoVideoProtocol {
     
-    var videoObject: VideoObject?
+    var videoObject: VideoObject
     
-    func getVideoById(params: VideoInfoRequest, completion: @escaping (VideoInfoContainerCompetionHandler)) {
-        ServerAPIManager.getVideosById(params: params)
+    override init() {
+        self.videoObject = VideoObject(with:
+            VideoInfoModel(kind: "", etag: "", pageInfo: PageInfo(totalResults: 0, resultsPerPage: 0),
+                           items: nil))
+    }
+    
+    func getVideoById(requestURL: URL, params: VideoInfoRequest, completion: @escaping (VideoInfoContainerCompetionHandler)) {
+        ServerAPIManager().getVideosById(requestURL: Constants.API.getVideoById, params: params)
         { (result, success, error) in
             if success, let videoInfo = result as? VideoInfoModel {
                 // Create an object that contains video properties.
@@ -33,10 +39,4 @@ final class VideoInfoContainer: NSObject, InfoVideoProtocol {
             }
         }
     }
-    
-    
-    
-    
-    
-    
 }

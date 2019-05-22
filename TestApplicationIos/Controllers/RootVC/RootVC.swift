@@ -9,7 +9,14 @@
 import UIKit
 import CountryPicker
 
-final class RootVC: UIViewController {
+protocol RootVCProtocol {
+    var videoObjects: [VideoObject] { get }
+    
+    func getVideoList(params: VideoListRequest)
+    func getVideoById(videoId: String)
+}
+
+final class RootVC: UIViewController, RootVCProtocol {
     
     //MARK: Outlets
     @IBOutlet weak var searchBar: UISearchBar?
@@ -60,7 +67,7 @@ final class RootVC: UIViewController {
     }
     
     func getVideoList(params: VideoListRequest) {
-        downloadVideoListContainer?.downloadVideoList(params: params)
+        downloadVideoListContainer?.downloadVideoList(requestURL: Constants.API.searchViedos, params: params)
         { (success, relust, error)  in
             if success, let videoList = relust as? VideoListModel {
                 self.countVideosInList = videoList.items.count
@@ -80,8 +87,8 @@ final class RootVC: UIViewController {
     }
     
     func getVideoById(videoId: String) {
-        ServerAPIManager.getVideosById(
-            params: VideoInfoRequest(id: videoId))
+        ServerAPIManager().getVideosById(
+            requestURL: Constants.API.getVideoById, params: VideoInfoRequest(id: videoId))
         { (result, success, error) in
             if success, let videoInfo = result as? VideoInfoModel {
                 // Create an object that contains video properties.

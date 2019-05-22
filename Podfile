@@ -12,4 +12,7 @@ target 'TestApplicationIos' do
  target 'TestApplicationIosFakeTests' do
       inherit! :search_paths
    end
+ target 'TestApplicationIosMockTests' do
+   inherit! :search_paths
+ end
 end

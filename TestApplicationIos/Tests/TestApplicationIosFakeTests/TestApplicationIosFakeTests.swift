@@ -15,7 +15,7 @@ import XCTest
 
 class TestApplicationIosFakeTests: XCTestCase {
     
-    let testVideoId = "CsKls-A0anc"
+    let testVideoId = "CevxZvSJLk8"
     
     var controllerUnderTest: RootVC!
     
@@ -29,47 +29,6 @@ class TestApplicationIosFakeTests: XCTestCase {
         controllerUnderTest = nil
     }
     
-    func test_RequestSearchVideoList() {
-        // Given
-        
-        let expectation = self.expectation(description: "Status code: 200")
-        let url = Constants.API.searchViedos
-        let params = VideoListRequest(
-            maxResults: 10,
-            regionCode: "UA",
-            q: "")
-        
-        // When
-        AFNetworkManager.getRequestWith(methodPath: url, params: params) { (response) in
-            
-            // Then
-            XCTAssertNil(response.error, "Error \(response.error!.localizedDescription)")
-            XCTAssertNotNil(response, "No response")
-            XCTAssertEqual(response.response?.statusCode ?? 0, 200, "Status code not 200")
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 5.0, handler: nil)
-    }
-    
-    func test_RequestGetVideoById() {
-        // Given
-        
-        let expectation = self.expectation(description: "Status code: 200")
-        let url = Constants.API.getVideoById
-        let params = VideoInfoRequest(id: testVideoId)
-        
-        // When
-        AFNetworkManager.getRequestWith(methodPath: url, params: params) { (response) in
-            
-            // Then
-            XCTAssertNil(response.error, "Error \(response.error!.localizedDescription)")
-            XCTAssertNotNil(response, "No response")
-            XCTAssertEqual(response.response?.statusCode ?? 0, 200, "Status code not 200")
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 5.0, handler: nil)
-    }
-    
     func test_ParseDataVideoList() {
         // Given
         let data = self.stub(urlString: "videoList")
@@ -79,14 +38,24 @@ class TestApplicationIosFakeTests: XCTestCase {
         let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoListModel.self)
         
         // Then
-        if let data = resultParsed.dataParsed {
-            XCTAssertNotNil(data)
-            XCTAssertEqual(data.items.count, 10, "Didn't parse 10 items from fake response")
-        } else {
-            XCTFail("Parsing json error")
-        }
+//        var data = resultParsed.dataParsed
+        XCTAssertNotNil(resultParsed.dataParsed)
+        XCTAssertEqual(resultParsed.dataParsed?.items.count, 10)
+        XCTAssertNotEqual(data.count, 0)
     }
     
+    func test_ParseDataVideoListError() {
+        // Given
+        let data = self.stub(urlString: "Empty")
+        
+        // When
+        let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoListModel.self)
+        
+        // Then
+        XCTAssertNotNil(data)
+        XCTAssertNotEqual(resultParsed.dataParsed?.items.count, 10, "Didn't parse 10 items from fake response")
+        XCTAssertEqual(data.count, 0)
+    }
     
     
     func test_ParseDataVideo() {
@@ -98,10 +67,23 @@ class TestApplicationIosFakeTests: XCTestCase {
         let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoInfoModel.self)
         
         // Then
-        if let data = resultParsed.dataParsed {
-            XCTAssertNotNil(data)
-        } else {
-            XCTFail("Parsing json error")
-        }
+        XCTAssertNotNil(data)
+        XCTAssertEqual(resultParsed.dataParsed?.items?.first?.id, testVideoId)
+        XCTAssertEqual(resultParsed.dataParsed?.items?.count, 1)
+        XCTAssertNotEqual(data.count, 0)
+    }
+    
+    func test_ParseDataVideoError() {
+        // Given
+        let data = self.stub(urlString: "Empty")
+        
+        // When
+        XCTAssertEqual(data.count, 0)
+        let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoInfoModel.self)
+        
+        // Then
+        XCTAssertNotNil(data)
+        XCTAssertNotEqual(resultParsed.dataParsed?.items?.count, 0)
+        XCTAssertEqual(data.count, 0)
     }
 }

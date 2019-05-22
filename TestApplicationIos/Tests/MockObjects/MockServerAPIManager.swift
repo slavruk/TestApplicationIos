@@ -1,30 +1,24 @@
 //
-//  ServerAPIManager.swift
+//  MockServerAPIManager.swift
 //  TestApplicationIos
 //
-//  Created by Stas Lavruk on 03/05/2019.
+//  Created by Stas Lavruk on 5/22/19.
 //  Copyright © 2019 Stas Lavruk. All rights reserved.
 //
 
 import Foundation
 
-protocol ServerAPIMangerProtocol {
-    func getVideosList(requestURL: URL, params: VideoListRequest, completion: @escaping (NetworkCompletionBlock))
-    func getVideosById(requestURL: URL, params: VideoInfoRequest, completion: @escaping (NetworkCompletionBlock))
-}
+@testable import TestApplicationIos
 
-internal typealias NetworkCompletionBlock = (_ result: AnyObject?, _ isSuccess: Bool, _ errorMessage: String?) -> Void
-
-final class ServerAPIManager: ServerAPIMangerProtocol {
-
+class MockServerAPIManager: ServerAPIMangerProtocol {
+    
     let networkManager: AFNetworkProtocol
     
-    init(_ networkManager: AFNetworkProtocol = AFNetworkManager()) {
+    init(_ networkManager: AFNetworkProtocol = MockAFNetworkManager()) {
         self.networkManager = networkManager
     }
     
     func getVideosList(requestURL: URL, params: VideoListRequest, completion: @escaping (NetworkCompletionBlock)) {
-//        let requestURL = Constants.API.searchViedos
         networkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
             switch responseData.result {
@@ -43,7 +37,6 @@ final class ServerAPIManager: ServerAPIMangerProtocol {
     }
     
     func getVideosById(requestURL: URL, params: VideoInfoRequest, completion: @escaping (NetworkCompletionBlock)) {
-//        let requestURL = Constants.API.getVideoById
         networkManager.getRequestWith(methodPath: requestURL, params: params)
         { (responseData) in
             switch responseData.result {
@@ -60,4 +53,6 @@ final class ServerAPIManager: ServerAPIMangerProtocol {
             }
         }
     }
+    
+    
 }

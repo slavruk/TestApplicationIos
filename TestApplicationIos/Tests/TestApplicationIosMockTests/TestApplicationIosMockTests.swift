@@ -12,7 +12,8 @@ import XCTest
 
 class TestApplicationIosMockTests: XCTestCase {
     
-    let testVideoId = "CsKls-A0anc"
+    let testVideoId = "CevxZvSJLk8"
+    let timeOutValue = 5.0
     
     var controllerUnderTest: RootVC!
     var mockDownloadVideoListContainer: MockDownloadVideoListContainer?
@@ -37,63 +38,80 @@ class TestApplicationIosMockTests: XCTestCase {
     }
     
     func test_getVideoList() {
-        guard let videoList = mockDownloadVideoListContainer?.videoList else {
-            XCTFail("Error load mockDownloadListManager")
-            return
-        }
+        let videoListContainer = mockDownloadVideoListContainer?.videoList
         // Given
         let expectation = self.expectation(description: "Status code: 200")
-        XCTAssertTrue(videoList.isEmpty, "The videoObjects array is not empty.")
-        mockDownloadVideoListContainer?.downloadVideoList(params: requestParamsVideoList!)
+        XCTAssertTrue(videoListContainer!.isEmpty)
+        mockDownloadVideoListContainer?.downloadVideoList(requestURL: URL(string: "videoList")!, params: requestParamsVideoList!)
         { (success, result, error) in
             // When
-            XCTAssertNotNil(result, "No data")
-            if success, let videoList = result as? VideoListModel {
-                XCTAssertTrue(success, "Incorrect value.")
-                XCTAssertNotNil(videoList, "No data parsed.")
-            } else {
-                XCTAssertFalse(success, "Incorrect value.")
-                XCTAssertGreaterThan(error.count, 0, "No error message.")
-            }
-            // Then
-            XCTAssertEqual(self.mockDownloadVideoListContainer?.videoList.count, 10, "The number of videos in array is not equal to 10.")
+            XCTAssertNotNil(result)
+            XCTAssertTrue(success)
+            XCTAssertNil(error)
+            let videoList = result as? VideoListModel
+            XCTAssertNotNil(videoList)
+            XCTAssertEqual(videoList?.items.count, 10)
             expectation.fulfill()
         }
-        waitForExpectations(timeout: 5.0, handler: nil)
+        waitForExpectations(timeout: timeOutValue, handler: nil)
+    }
+    
+    func test_getVideoListServerError() {
+        let videoListContainer = mockDownloadVideoListContainer?.videoList
+        // Given
+        let expectation = self.expectation(description: "Status code: 200")
+        XCTAssertTrue(videoListContainer!.isEmpty)
+        mockDownloadVideoListContainer?.downloadVideoList(requestURL: URL(string: "Empty")!, params: requestParamsVideoList!)
+        { (success, result, error) in
+            // When
+            XCTAssertNil(result)
+            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error, "Server error")
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: timeOutValue, handler: nil)
     }
     
     func test_getInfoVideoById() {
         // Given
         let expectation = self.expectation(description: "Status code: 200.")
-        mockVideoInfoContainer?.getVideoById(params: VideoInfoRequest(id: testVideoId))
+        mockVideoInfoContainer?.getVideoById(requestURL: URL(string: "videoInfo")!, params: VideoInfoRequest(id: testVideoId))
         { (success, result, error) in
             // When
-            XCTAssertNotNil(result, "No data")
-            if success, let videoInfo = result as? VideoInfoModel {
-                XCTAssertTrue(success, "Incorrect value.")
-                XCTAssertNotNil(videoInfo, "No data parsed.")
-                XCTAssertNotNil(self.mockVideoInfoContainer?.videoObject, "Error properties 'video' in MockVideoInfoContainer equal nil.")
-            } else {
-                XCTAssertFalse(success, "Incorrect value.")
-                XCTAssertGreaterThan(error.count, 0, "No error message.")
-            }
-            // Then
-            XCTAssertEqual(self.mockVideoInfoContainer?.videoObject?.viedoId, self.testVideoId, "Id not equal to expected.")
+            XCTAssertNotNil(result)
+            XCTAssertTrue(success)
+            XCTAssertNil(error)
+            let videoInfo = result as? VideoInfoModel
+            XCTAssertNotNil(videoInfo)
+            XCTAssertEqual(videoInfo?.items?.count, 1)
+            XCTAssertEqual(videoInfo?.items?.first?.id, self.testVideoId)
             expectation.fulfill()
         }
-        waitForExpectations(timeout: 5.0, handler: nil)
+        waitForExpectations(timeout: timeOutValue, handler: nil)
+    }
+    
+    func test_getInfoVideoByIdServerError() {
+        // Given
+        let expectation = self.expectation(description: "Status code: 200.")
+        mockVideoInfoContainer?.getVideoById(requestURL: URL(string: "Empty")!, params: VideoInfoRequest(id: testVideoId))
+        { (success, result, error) in
+            // When
+            XCTAssertNil(result)
+            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error, "Server error")
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: timeOutValue, handler: nil)
     }
     
     func test_DownloadVideoList() {
         // This is an example of a performance test case.
         self.measure {
-            self.mockDownloadVideoListContainer?.downloadVideoList(params: requestParamsVideoList!)
+            self.mockDownloadVideoListContainer?.downloadVideoList(requestURL: URL(string: "videoList")!, params: requestParamsVideoList!)
             { (success, result, error) in
-                if success, let _ = result as? VideoInfoModel {
-                    print("Success")
-                } else {
-                    print("Error")
-                }
+                
             }
         }
     }
@@ -101,13 +119,8 @@ class TestApplicationIosMockTests: XCTestCase {
     func test_DownloadVideoById() {
         // This is an example of a performance test case.
         self.measure {
-            self.mockVideoInfoContainer?.getVideoById(params: VideoInfoRequest(id: testVideoId))
+            self.mockVideoInfoContainer?.getVideoById(requestURL: URL(string: "videoInfo")!, params: VideoInfoRequest(id: testVideoId))
             { (success, result, error) in
-                if success, let _ = result as? VideoInfoModel {
-                    print("Success")
-                } else {
-                    print("Error")
-                }
             }
         }
     }

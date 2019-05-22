@@ -9,16 +9,21 @@
 import Foundation
 import Alamofire
 
-final class AFNetworkManager {
+protocol AFNetworkProtocol {
+    var header: HTTPHeaders? { get }
+    func getRequestWith<T: Codable>(methodPath: URL, params: T, completion: @escaping (_ responseData: (DataResponse<Any>)) -> ())
+}
+
+class AFNetworkManager: AFNetworkProtocol {
     
-    private class var header: HTTPHeaders? {
+    var header: HTTPHeaders? {
         return ["Content-Type": "application/json",
                 "Accept": "application/json"]
     }
     
-    class func getRequestWith<T: Codable>(methodPath: URL,
-                              params: T,
-                              completion: @escaping (_ responseData: (DataResponse<Any>)) -> ()) {
+    func getRequestWith<T: Codable>(methodPath: URL,
+                                    params: T,
+                                    completion: @escaping (_ responseData: (DataResponse<Any>)) -> ()) {
         let encoder = JSONEncoder()
         let jsonData = try! encoder.encode(params)
         do {
@@ -28,11 +33,11 @@ final class AFNetworkManager {
                 method: .get,
                 parameters: dict,
                 encoding: URLEncoding.default,
-                headers: self.header
+                headers: header
                 )
                 .validate()
                 .responseJSON { (requestData) in
-                completion(requestData)
+                    completion(requestData)
             }
         } catch { print(error) }
     }

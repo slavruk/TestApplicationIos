@@ -9,23 +9,7 @@
 import Foundation
 
 final class ResponseDataParser {
-    
-    class func parse(_ responseData: Data?) -> [String: Any]? {
-        guard let responseData = responseData,
-            let parsedData = try? JSONSerialization.jsonObject(with: responseData,
-                                                               options: []) as? [String: Any]
-            else { return nil }
-        return parsedData
-    }
-    
-    class func parseErrors(from responseData: Data?) -> String {
-        guard let parsedResponse = parse(responseData),
-            let error = parsedResponse["error"] as? String ?? parsedResponse["message"] as? String else {
-                return "Unhandled error!"
-        }
-        return error
-    }
-    
+        
     class func parse<T: Codable>(responseData: Data?, type: T.Type) -> (dataParsed: T?, error: String?) {
         guard let data = responseData else {
             return (dataParsed: nil, error: "Server error")

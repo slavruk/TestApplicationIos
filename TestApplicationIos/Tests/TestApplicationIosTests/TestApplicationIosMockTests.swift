@@ -15,9 +15,9 @@ class TestApplicationIosMockTests: XCTestCase {
     let testVideoId = "CevxZvSJLk8"
     let timeOutValue = 5.0
     
-    var controllerUnderTest: RootVC!
-    var mockDownloadVideoListContainer: MockDownloadVideoListContainer?
-    var mockVideoInfoContainer: MockVideoInfoContainer?
+    var controllerUnderTest: RootVC?
+    var mockDownloadVideoListContainer: VideoListContainer?
+    var mockVideoInfoContainer: VideoInfoContainer?
     
     var requestParamsVideoList: VideoListRequest?
     
@@ -26,15 +26,31 @@ class TestApplicationIosMockTests: XCTestCase {
             maxResults: 10,
             regionCode: "UA",
             q: "")
-        controllerUnderTest = UIStoryboard(name: "RootVC", bundle: nil).instantiateViewController(withIdentifier: "RootViewController") as? RootVC
-        mockDownloadVideoListContainer = MockDownloadVideoListContainer()
-        mockVideoInfoContainer = MockVideoInfoContainer()
+        controllerUnderTest = RootVC()
+        controllerUnderTest?.videoListContainer = MockVideoListContainer(MockAFNetworkManager())
+        controllerUnderTest?.videoInfoContainer = MockVideoInfoContainer(MockAFNetworkManager())
+        mockDownloadVideoListContainer = VideoListContainer()
+        mockDownloadVideoListContainer?.networkManager = MockAFNetworkManager()
+        mockVideoInfoContainer = VideoInfoContainer()
+        mockVideoInfoContainer?.networkManager = MockAFNetworkManager()
     }
     
     override func tearDown() {
         controllerUnderTest = nil
         mockDownloadVideoListContainer = nil
         mockVideoInfoContainer = nil
+    }
+    
+    func test_RootVCgetVideoListSuccess() {
+        // Given
+        let expectation = self.expectation(description: "Status code: 200")
+        controllerUnderTest?.getVideoList(params: requestParamsVideoList!)
+        // When
+        XCTAssertNotEqual(controllerUnderTest?.countVideosInList, 0)
+        XCTAssertEqual(controllerUnderTest?.countVideosInList, 10)
+        XCTAssertEqual(controllerUnderTest?.videoObjects.count, 10)
+        expectation.fulfill()
+        waitForExpectations(timeout: timeOutValue, handler: nil)
     }
     
     func test_getVideoList() {
@@ -106,22 +122,22 @@ class TestApplicationIosMockTests: XCTestCase {
         waitForExpectations(timeout: timeOutValue, handler: nil)
     }
     
-    func test_DownloadVideoList() {
-        // This is an example of a performance test case.
-        self.measure {
-            self.mockDownloadVideoListContainer?.downloadVideoList(requestURL: URL(string: "videoList")!, params: requestParamsVideoList!)
-            { (success, result, error) in
-                
-            }
-        }
-    }
-    
-    func test_DownloadVideoById() {
-        // This is an example of a performance test case.
-        self.measure {
-            self.mockVideoInfoContainer?.getVideoById(requestURL: URL(string: "videoInfo")!, params: VideoInfoRequest(id: testVideoId))
-            { (success, result, error) in
-            }
-        }
-    }
+    //    func test_DownloadVideoList() {
+    //        // This is an example of a performance test case.
+    //        self.measure {
+    //            self.mockDownloadVideoListContainer?.downloadVideoList(requestURL: URL(string: "videoList")!, params: requestParamsVideoList!)
+    //            { (success, result, error) in
+    //
+    //            }
+    //        }
+    //    }
+    //
+    //    func test_DownloadVideoById() {
+    //        // This is an example of a performance test case.
+    //        self.measure {
+    //            self.mockVideoInfoContainer?.getVideoById(requestURL: URL(string: "videoInfo")!, params: VideoInfoRequest(id: testVideoId))
+    //            { (success, result, error) in
+    //            }
+    //        }
+    //    }
 }

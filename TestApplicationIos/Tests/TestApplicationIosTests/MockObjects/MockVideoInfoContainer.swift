@@ -12,19 +12,16 @@ import Foundation
 
 class MockVideoInfoContainer: InfoVideoProtocol {
     
-    var videoObject: VideoObject
+    var networkManager: AFNetworkProtocol
+    var videoObject: VideoObject?
     
-    init() {
-        self.videoObject = VideoObject(with:
-            VideoInfoModel(kind: "", etag: "", pageInfo: PageInfo(totalResults: 0, resultsPerPage: 0),
-                           items: nil))
+    init(_ networkManager: AFNetworkProtocol = AFNetworkManager()) {
+        self.networkManager = networkManager
     }
     
     func getVideoById(requestURL: URL, params: VideoInfoRequest, completion: @escaping (VideoInfoContainerCompetionHandler)) {
-        LSActivityIndicator.showIndicator(fullScreen: false)
-        MockServerAPIManager().getVideosById(requestURL: requestURL, params: params)
+        ServerAPIManager(networkManager).getVideosById(requestURL: URL(string: "videoInfo")!, params: params)
         { (result, success, error) in
-            LSActivityIndicator.hideIndicator()
             if success, let videoInfo = result as? VideoInfoModel {
                 // Create an object that contains video properties.
                 self.videoObject = VideoObject(with: videoInfo)

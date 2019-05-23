@@ -21,6 +21,7 @@ final class ServerAPIManager: ServerAPIMangerProtocol {
     
     init(_ networkManager: AFNetworkProtocol = AFNetworkManager()) {
         self.networkManager = networkManager
+        print(self.networkManager)
     }
     
     func getVideosList(requestURL: URL, params: VideoListRequest, completion: @escaping (NetworkCompletionBlock)) {

@@ -18,15 +18,18 @@ class TestApplicationIosFakeTests: XCTestCase {
     let testVideoId = "CevxZvSJLk8"
     
     var controllerUnderTest: RootVC!
+    var networkManager: AFNetworkManager!
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         controllerUnderTest = UIStoryboard(name: "RootVC", bundle: nil).instantiateViewController(withIdentifier: "RootViewController") as? RootVC
+        networkManager = AFNetworkManager()
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         controllerUnderTest = nil
+        networkManager = nil
     }
     
     func test_ParseDataVideoList() {
@@ -38,7 +41,6 @@ class TestApplicationIosFakeTests: XCTestCase {
         let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoListModel.self)
         
         // Then
-//        var data = resultParsed.dataParsed
         XCTAssertNotNil(resultParsed.dataParsed)
         XCTAssertEqual(resultParsed.dataParsed?.items.count, 10)
         XCTAssertNotEqual(data.count, 0)
@@ -54,7 +56,6 @@ class TestApplicationIosFakeTests: XCTestCase {
         // Then
         XCTAssertNotNil(data)
         XCTAssertNotEqual(resultParsed.dataParsed?.items.count, 10, "Didn't parse 10 items from fake response")
-        XCTAssertEqual(data.count, 0)
     }
     
     
@@ -78,12 +79,29 @@ class TestApplicationIosFakeTests: XCTestCase {
         let data = self.stub(urlString: "Empty")
         
         // When
-        XCTAssertEqual(data.count, 0)
         let resultParsed = ResponseDataParser.parse(responseData: data, type: VideoInfoModel.self)
         
         // Then
         XCTAssertNotNil(data)
         XCTAssertNotEqual(resultParsed.dataParsed?.items?.count, 0)
-        XCTAssertEqual(data.count, 0)
+    }
+    
+    func test_getRequestWith() {
+        networkManager.getRequestWith(methodPath: URL(string: "videoInfo"), params: VideoListRequest(
+            maxResults: 10,
+            regionCode: "UA",
+            q: "", completion: { (<#(DataResponse<Any>)#>) in
+                <#code#>
+        })
+    }
+}
+
+extension TestApplicationIosFakeTests {
+    
+    func stub(urlString: String) -> Data {
+        let bundle = Bundle(for: type(of: self))
+        guard let path = bundle.path(forResource: urlString, ofType: "json") else { return Data() }
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+        return data ?? Data()
     }
 }

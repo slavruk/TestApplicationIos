@@ -1,5 +1,5 @@
 //
-//  MockDownloadVideoListContainer.swift
+//  MockVideoListContainer.swift
 //  TestApplicationIosMockTests
 //
 //  Created by Stas Lavruk on 5/21/19.
@@ -10,24 +10,25 @@ import Foundation
 
 @testable import TestApplicationIos
 
-class MockDownloadVideoListContainer: DownloadVideoListProtocol {
+class MockVideoListContainer: VideoListProtocol {
         
-    var videoList: [Item]
+    var networkManager: AFNetworkProtocol
+    var videoList: [Item] = []
     
-    init() {
-        videoList = []
+    init(_ networkManager: AFNetworkProtocol = AFNetworkManager()) {
+        self.networkManager = networkManager
     }
     
     func downloadVideoList(requestURL: URL, params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler)) {
         LSActivityIndicator.showIndicator(fullScreen: false)
-        MockServerAPIManager().getVideosList(requestURL: requestURL, params: params)
+        ServerAPIManager(networkManager).getVideosList(requestURL: URL(string: "videoList")!, params: params)
         { (result, success, error) in
             LSActivityIndicator.hideIndicator()
             if success, let videoList = result as? VideoListModel {
                 self.videoList = videoList.items
-                completion(true, videoList as AnyObject, nil)
+                completion(true, result, nil)
             } else {
-                completion(false, nil, error ?? "Error")
+                completion(false, nil, error ?? "error")
             }
         }
     }

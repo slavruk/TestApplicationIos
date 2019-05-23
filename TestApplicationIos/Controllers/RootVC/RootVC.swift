@@ -11,9 +11,10 @@ import CountryPicker
 
 protocol RootVCProtocol {
     var videoObjects: [VideoObject] { get }
-    
+    var countVideosInList: Int { get }
     func getVideoList(params: VideoListRequest)
     func getVideoById(videoId: String)
+    func updateSearchVideoList(videoList items: [Item])
 }
 
 final class RootVC: UIViewController, RootVCProtocol {
@@ -23,8 +24,9 @@ final class RootVC: UIViewController, RootVCProtocol {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var countryPickerView: UIView?
     @IBOutlet weak var countryPicker: CountryPicker?
-    @IBOutlet weak var downloadVideoListContainer: DownloadVideoListProtocol?
-    @IBOutlet weak var videoInfoContainer: InfoVideoProtocol?
+    
+    var videoListContainer: VideoListProtocol?
+    var videoInfoContainer: InfoVideoProtocol?
     
     //MARK: Constants
     let countResultVideo = 10
@@ -67,7 +69,7 @@ final class RootVC: UIViewController, RootVCProtocol {
     }
     
     func getVideoList(params: VideoListRequest) {
-        downloadVideoListContainer?.downloadVideoList(requestURL: Constants.API.searchViedos, params: params)
+        videoListContainer?.downloadVideoList(requestURL: Constants.API.searchViedos, params: params)
         { (success, relust, error)  in
             if success, let videoList = relust as? VideoListModel {
                 self.countVideosInList = videoList.items.count
@@ -87,9 +89,8 @@ final class RootVC: UIViewController, RootVCProtocol {
     }
     
     func getVideoById(videoId: String) {
-        ServerAPIManager().getVideosById(
-            requestURL: Constants.API.getVideoById, params: VideoInfoRequest(id: videoId))
-        { (result, success, error) in
+        videoInfoContainer?.getVideoById(requestURL: Constants.API.getVideoById, params: VideoInfoRequest(id: videoId))
+        { (success, result, error) in
             if success, let videoInfo = result as? VideoInfoModel {
                 // Create an object that contains video properties.
                 self.videoObjects.append(VideoObject(with: videoInfo))

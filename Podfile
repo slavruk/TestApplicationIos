@@ -8,11 +8,8 @@ target 'TestApplicationIos' do
     pod 'Alamofire'
     pod 'Kingfisher'
     pod 'CountryPickerSwift'
-
- target 'TestApplicationIosFakeTests' do
-      inherit! :search_paths
-   end
- target 'TestApplicationIosMockTests' do
+    
+ target 'TestApplicationIosTests' do
    inherit! :search_paths
  end
 end

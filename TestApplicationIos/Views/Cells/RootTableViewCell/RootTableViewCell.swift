@@ -28,9 +28,9 @@ class RootTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         previewImageView?.image = nil
-        nameVideLabel?.text = ""
-        videoDurationLabel?.text = ""
-        viewsCountLabel?.text = ""
+        nameVideLabel?.text = nil
+        videoDurationLabel?.text = nil
+        viewsCountLabel?.text = nil
     }
     
     /*

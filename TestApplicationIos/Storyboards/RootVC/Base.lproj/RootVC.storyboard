@@ -140,10 +140,8 @@
                     <connections>
                         <outlet property="countryPicker" destination="t2v-fM-n2h" id="iOQ-2c-zGY"/>
                         <outlet property="countryPickerView" destination="16L-Pj-Ygc" id="onK-m6-2cl"/>
-                        <outlet property="downloadVideoListContainer" destination="MC5-Ln-4xb" id="SyK-8s-TiN"/>
                         <outlet property="searchBar" destination="ucF-X0-xeY" id="kM4-ck-ICv"/>
                         <outlet property="tableView" destination="bBB-cR-I8w" id="x4z-2v-bc6"/>
-                        <outlet property="videoInfoContainer" destination="a8S-uo-9uo" id="JmK-X0-iBW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc protocol DownloadVideoListProtocol {
-    
+@objc protocol VideoListProtocol {
+        
     var videoList: [Item] { get }
     
     func downloadVideoList(requestURL: URL, params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler))
@@ -17,17 +17,23 @@ import Foundation
 
 typealias DowloadVideoCompetionHandler = (_ success: Bool, _ result: AnyObject?, _ error: String?) -> Void
 
-final class VideoListContainer: NSObject, DownloadVideoListProtocol {
+
+final class VideoListContainer: NSObject, VideoListProtocol {
     
-    var videoList: [Item]
+    var networkManager: AFNetworkProtocol
+    var videoList: [Item] = []
+    
+    init(_ networkManager: AFNetworkProtocol) {
+        self.networkManager = networkManager
+    }
     
     override init() {
-        videoList = []
+        networkManager = AFNetworkManager()
     }
     
     func downloadVideoList(requestURL: URL, params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler)) {
         LSActivityIndicator.showIndicator(fullScreen: false)
-        ServerAPIManager().getVideosList(requestURL: requestURL, params: params)
+        ServerAPIManager(networkManager).getVideosList(requestURL: requestURL, params: params)
         { (result, success, error) in
             LSActivityIndicator.hideIndicator()
             if success, let videoList = result as? VideoListModel {

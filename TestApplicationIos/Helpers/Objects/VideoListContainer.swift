@@ -7,15 +7,18 @@
 //
 
 import Foundation
+import PromiseKit
 
-@objc protocol VideoListProtocol {
-        
+protocol VideoListProtocol {
+    
     var videoList: [Item] { get }
     
-    func downloadVideoList(requestURL: URL, params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler))
+    func downloadVideoList<Request: Codable>(requestURL: URL, params: Request) -> Promise<VideoListModel>
 }
 
-typealias DowloadVideoCompetionHandler = (_ success: Bool, _ result: AnyObject?, _ error: String?) -> Void
+//typealias DowloadVideoCompetionHandler = (_ success: Bool, _ result: AnyObject?, _ error: String?) -> Void
+
+typealias VideoList = (_ success: Bool, _ result: VideoListModel?, _ error: String?) -> Void
 
 
 final class VideoListContainer: NSObject, VideoListProtocol {
@@ -31,17 +34,8 @@ final class VideoListContainer: NSObject, VideoListProtocol {
         networkManager = AFNetworkManager()
     }
     
-    func downloadVideoList(requestURL: URL, params: VideoListRequest, completion: @escaping (DowloadVideoCompetionHandler)) {
-        LSActivityIndicator.showIndicator(fullScreen: false)
-        ServerAPIManager(networkManager).getVideosList(requestURL: requestURL, params: params)
-        { (result, success, error) in
-            LSActivityIndicator.hideIndicator()
-            if success, let videoList = result as? VideoListModel {
-                self.videoList = videoList.items
-                completion(true, result, nil)
-            } else {
-                completion(false, nil, error ?? "error")
-            }
-        }
+    func downloadVideoList<Request: Codable>(requestURL: URL, params: Request) -> Promise<VideoListModel> {
+        return networkManager.getRequestWith(methodPath: requestURL, params: params, response: VideoListModel.self)
     }
 }
+

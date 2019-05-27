@@ -8,37 +8,32 @@
 
 import Foundation
 import Alamofire
+import PromiseKit
+
 
 protocol AFNetworkProtocol {
     var header: HTTPHeaders? { get }
-    func getRequestWith<T: Codable>(methodPath: URL, params: T, completion: @escaping (_ responseData: (DataResponse<Any>)) -> ())
+    func getRequestWith<Request: Codable, Response: Codable>(methodPath: URL, params: Request, response: Response.Type) -> Promise<Response>
 }
 
 class AFNetworkManager: AFNetworkProtocol {
+    
+    
+    var sessionManager: SessionManager
     
     var header: HTTPHeaders? {
         return ["Content-Type": "application/json",
                 "Accept": "application/json"]
     }
     
-    func getRequestWith<T: Codable>(methodPath: URL,
-                                    params: T,
-                                    completion: @escaping (_ responseData: (DataResponse<Any>)) -> ()) {
+    init(_ sessionManager: SessionManager = SessionManager.default) {
+        self.sessionManager = sessionManager
+    }
+    
+    func getRequestWith<Request: Codable, Response: Codable>(methodPath: URL, params: Request, response: Response.Type) -> Promise<Response> {
         let encoder = JSONEncoder()
         let jsonData = try! encoder.encode(params)
-        do {
-            let dict = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? Parameters
-            Alamofire.request(
-                methodPath,
-                method: .get,
-                parameters: dict,
-                encoding: URLEncoding.default,
-                headers: header
-                )
-                .validate()
-                .responseJSON { (requestData) in
-                    completion(requestData)
-            }
-        } catch { print(error) }
+        let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? Parameters
+        return sessionManager.request(methodPath, method: .get, parameters: dict, encoding: URLEncoding.default, headers: header).responseDecodable(Response.self)
     }
 }

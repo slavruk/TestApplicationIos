@@ -30,6 +30,7 @@
 		51F7A86722802F8800DD21FC /* RootVC+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A86622802F8800DD21FC /* RootVC+SearchBarDelegate.swift */; };
 		51F7A869228038D800DD21FC /* VideoInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7A868228038D800DD21FC /* VideoInfoModel.swift */; };
 		EA24CCED5C03774547EA67D9 /* Pods_TestApplicationIos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85E64C12DB2CB2EC8C9D5D68 /* Pods_TestApplicationIos.framework */; };
+		FB0947AD229BBFB80093CA7A /* AlamofireExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0947AC229BBFB80093CA7A /* AlamofireExtensions.swift */; };
 		FB88F7A0228EA4E5000F44E8 /* VideoListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88F79F228EA4E5000F44E8 /* VideoListContainer.swift */; };
 		FB8B48A22295677000566FFA /* Empty.json in Resources */ = {isa = PBXBuildFile; fileRef = FB8B48A12295677000566FFA /* Empty.json */; };
 		FB8F89A3229279A300B8512B /* VideoInfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8F89A2229279A300B8512B /* VideoInfoContainer.swift */; };
@@ -43,7 +44,7 @@
 		FBF195242296B55B00636970 /* Empty.json in Resources */ = {isa = PBXBuildFile; fileRef = FB8B48A12295677000566FFA /* Empty.json */; };
 		FBF195252296B55B00636970 /* videoList.json in Resources */ = {isa = PBXBuildFile; fileRef = FB88F79D228E8855000F44E8 /* videoList.json */; };
 		FBF195272296B60600636970 /* TestApllicationIosExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF195262296B60600636970 /* TestApllicationIosExtensionTests.swift */; };
-		FBF1952B2296E0B900636970 /* MockSessionManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF195282296C1BA00636970 /* MockSessionManger.swift */; };
+		FBF1952C2296ED7E00636970 /* MockSessionManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF195282296C1BA00636970 /* MockSessionManger.swift */; };
 		FBFF9FDB228D3C2C00199EFA /* VideoListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFF9FDA228D3C2C00199EFA /* VideoListRequest.swift */; };
 		FBFF9FDE228D5A5100199EFA /* VideoInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFF9FDD228D5A5100199EFA /* VideoInfoRequest.swift */; };
 /* End PBXBuildFile section */
@@ -94,6 +95,7 @@
 		E2230ACE0556016B5CA5C21E /* Pods_TestApplicationIosMockTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestApplicationIosMockTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42204952DDA9C91B3B0BEF1 /* Pods-TestApplicationIosFakeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApplicationIosFakeTests.release.xcconfig"; path = "Target Support Files/Pods-TestApplicationIosFakeTests/Pods-TestApplicationIosFakeTests.release.xcconfig"; sourceTree = "<group>"; };
 		E70EB4D36E851E5D0E70AADD /* Pods-TestApplicationIos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApplicationIos.debug.xcconfig"; path = "Target Support Files/Pods-TestApplicationIos/Pods-TestApplicationIos.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0947AC229BBFB80093CA7A /* AlamofireExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireExtensions.swift; sourceTree = "<group>"; };
 		FB88F79A228E8753000F44E8 /* videoInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoInfo.json; sourceTree = "<group>"; };
 		FB88F79D228E8855000F44E8 /* videoList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoList.json; sourceTree = "<group>"; };
 		FB88F79F228EA4E5000F44E8 /* VideoListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListContainer.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 			children = (
 				51F7A843227F4B4200DD21FC /* DateExtension.swift */,
 				51F7A845227F6DCD00DD21FC /* StringExtension.swift */,
+				FB0947AC229BBFB80093CA7A /* AlamofireExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CountryPickerSwift/CountryPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -564,6 +568,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountryPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -577,6 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB0947AD229BBFB80093CA7A /* AlamofireExtensions.swift in Sources */,
 				513D96C2227CF55D009D6D51 /* RootVC+UITableViewDelegate.swift in Sources */,
 				51F7A86722802F8800DD21FC /* RootVC+SearchBarDelegate.swift in Sources */,
 				FBFF9FDE228D5A5100199EFA /* VideoInfoRequest.swift in Sources */,
@@ -597,7 +603,6 @@
 				513D96A4227CC17A009D6D51 /* AppDelegate.swift in Sources */,
 				FBFF9FDB228D3C2C00199EFA /* VideoListRequest.swift in Sources */,
 				513D96BD227CC49B009D6D51 /* AFNetworkManager.swift in Sources */,
-				FBF1952B2296E0B900636970 /* MockSessionManger.swift in Sources */,
 				51F7A83F227E50A700DD21FC /* VideoObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,6 +613,7 @@
 			files = (
 				FBF1950E22968D6700636970 /* TestApplicationIosTableTests.swift in Sources */,
 				FBF1951B2296B1FC00636970 /* TestApplicationIosMockTests.swift in Sources */,
+				FBF1952C2296ED7E00636970 /* MockSessionManger.swift in Sources */,
 				FBF1951D2296B23200636970 /* TestApplicationIosFakeTests.swift in Sources */,
 				FBF1951F2296B3A400636970 /* MockVideoListContainer.swift in Sources */,
 				FBF1951E2296B39F00636970 /* MockAFNetworkManager.swift in Sources */,

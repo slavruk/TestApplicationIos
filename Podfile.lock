@@ -2,23 +2,30 @@ PODS:
   - Alamofire (4.8.2)
   - CountryPickerSwift (1.8.0)
   - Kingfisher (5.4.0)
+  - PromiseKit/Alamofire (6.8.4):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.8.4)
 
 DEPENDENCIES:
   - Alamofire
   - CountryPickerSwift
   - Kingfisher
+  - PromiseKit/Alamofire
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CountryPickerSwift
     - Kingfisher
+    - PromiseKit
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CountryPickerSwift: 4c328ae9687322cacf541120f5c43f0e2c1ba194
   Kingfisher: 9c8f2cc6710334e06f32ba2b45e77707d5e2f0c9
+  PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
 
-PODFILE CHECKSUM: c0cd1373dec82487acd0891f24e38bfbaf9744a1
+PODFILE CHECKSUM: 0bd552caacb1559d20dd0a095b859b9d022ad344
 
 COCOAPODS: 1.6.1

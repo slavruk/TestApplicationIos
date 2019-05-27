@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct VideoListModel: Codable {
+@objc class VideoListModel: NSObject, Codable {
     let kind, etag, nextPageToken, regionCode: String?
     let pageInfo: PageInfo
     let items: [Item]

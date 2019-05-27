@@ -8,6 +8,7 @@ target 'TestApplicationIos' do
     pod 'Alamofire'
     pod 'Kingfisher'
     pod 'CountryPickerSwift'
+    pod 'PromiseKit/Alamofire'
     
  target 'TestApplicationIosTests' do
    inherit! :search_paths

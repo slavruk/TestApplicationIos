@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Alamofire
 
 @testable import TestApplicationIos
 
@@ -18,6 +19,7 @@ class TestApplicationIosMockTests: XCTestCase {
     var controllerUnderTest: RootVC?
     var mockDownloadVideoListContainer: VideoListContainer?
     var mockVideoInfoContainer: VideoInfoContainer?
+    var networkManager: AFNetworkManager!
     
     var requestParamsVideoList: VideoListRequest?
     
@@ -33,12 +35,14 @@ class TestApplicationIosMockTests: XCTestCase {
         mockDownloadVideoListContainer?.networkManager = MockAFNetworkManager()
         mockVideoInfoContainer = VideoInfoContainer()
         mockVideoInfoContainer?.networkManager = MockAFNetworkManager()
+        networkManager = AFNetworkManager()
     }
     
     override func tearDown() {
         controllerUnderTest = nil
         mockDownloadVideoListContainer = nil
         mockVideoInfoContainer = nil
+        networkManager = nil
     }
     
     func test_RootVCgetVideoListSuccess() {
@@ -117,6 +121,40 @@ class TestApplicationIosMockTests: XCTestCase {
             XCTAssertFalse(success)
             XCTAssertNotNil(error)
             XCTAssertEqual(error, "Server error")
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: timeOutValue, handler: nil)
+    }
+    
+    func test_getRequestWith() {
+        // Given
+        let expectation = self.expectation(description: "Status code: 200.")
+        // When
+        networkManager.getRequestWith(methodPath: Constants.API.getVideoById, params: VideoInfoRequest(id: testVideoId))
+        { (responseData) in
+            // Then
+            XCTAssertNotNil(responseData.request)
+            XCTAssertNotNil(responseData.response)
+            XCTAssertNotNil(responseData.data)
+            XCTAssertNil(responseData.error)
+            XCTAssertEqual(responseData.response?.statusCode, 200)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: timeOutValue, handler: nil)
+    }
+    
+    func test_getRequestWithError() {
+        // Given
+        let expectation = self.expectation(description: "Status code: 200.")
+        // When
+        networkManager.getRequestWith(methodPath: URL(string: "https://www.googleapis.com/youtube1/v3/search")!, params: VideoInfoRequest(id: testVideoId))
+        { (responseData) in
+            // Then
+            XCTAssertNotNil(responseData.request)
+            XCTAssertNotNil(responseData.response)
+            XCTAssertNotNil(responseData.data)
+            XCTAssertNotNil(responseData.error)
+            XCTAssertEqual(responseData.response?.statusCode, 404)
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeOutValue, handler: nil)

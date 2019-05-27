@@ -47,14 +47,14 @@ class Request {
 //    //    }
 //}
 
-class MockDataRequest: Alamofire.DataRequest {
-    
-    override init(session: URLSession, requestTask: Alamofire.Request.RequestTask, error: Error? = nil) {
-        super.init(session: session, requestTask: requestTask)
-    }
-    
-    override func responseJSON(queue: DispatchQueue? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<Any>) -> Void) -> Self {
-        
-    }
-    
-}
+//class MockDataRequest: Alamofire.DataRequest {
+//    
+//    override init(session: URLSession, requestTask: Alamofire.Request.RequestTask, error: Error? = nil) {
+//        super.init(session: session, requestTask: requestTask)
+//    }
+//    
+//    override func responseJSON(queue: DispatchQueue? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<Any>) -> Void) -> Self {
+//        
+//    }
+//    
+//}
